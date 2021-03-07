@@ -1,0 +1,14 @@
+metadata-files:
+- /home/matteo/.pandoc/configs/config.yaml
+
+# csl: /home/matteo/.pandoc/csls/ieee.csl
+
+# bibliography:
+#  - /home/lorenzo/Repos/Shrapnel/.biblio/bibliography.bib
+#  - /home/lorenzo/Repos/Shrapnel/.biblio/videography.bib
+#  - /home/lorenzo/Repos/Shrapnel/.biblio/linkography.bib
+
+template: wiki_template.html
+
+filters:
+- links-to-html.lua

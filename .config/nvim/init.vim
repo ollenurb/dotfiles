@@ -1,16 +1,21 @@
-" Plugins
 call plug#begin('~/.vim/plugged')
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
-    " Haskell related
-    Plug 'neovimhaskell/haskell-vim'
-    Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
-    Plug 'derekelkins/agda-vim'
+
+    " Fancy Discord integration (requires python3 support)
+    Plug 'hugolgst/vimsence'
+    Plug 'godlygeek/tabular'
+    Plug 'plasticboy/vim-markdown'
     Plug 'vim-latex/vim-latex'
     Plug 'vimwiki/vimwiki'
     Plug 'ntpeters/vim-better-whitespace'
     Plug 'itchyny/lightline.vim'
+
+    " Haskell related
+    Plug 'neovimhaskell/haskell-vim'
+    Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+    Plug 'derekelkins/agda-vim'
 call plug#end()
 
 " Basic stuff
@@ -26,6 +31,10 @@ set nobackup
 set smartcase
 set mouse=a
 set tabstop=2 softtabstop=0 expandtab shiftwidth=4 smarttab
+
+let g:vimsence_small_text = 'NeoVim'
+let g:vimsence_small_image = 'neovim'
+let g:vimsence_custom_icons = {'haskell': 'hs', 'vimwiki': 'md'}
 
 au BufNewFile,BufRead *.md
     \ set textwidth=100

@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =5
+let g:netrw_dirhist_5='/home/matteo/Desktop/University/Notes/SCPD-MFN0795'
+let g:netrw_dirhist_4='/home/matteo/.config/nvim'
 let g:netrw_dirhist_3='/home/matteo/Desktop/Programming/Haskell/HaskellBook/functors/src'
 let g:netrw_dirhist_2='/home/matteo/.ghc'
 let g:netrw_dirhist_1='/home/matteo/.config'

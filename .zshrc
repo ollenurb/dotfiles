@@ -1,10 +1,8 @@
 # ghcup-env
-PS1='[\u@\h \W]\$ ' [ -f "/home/matteo/.ghcup/env" ] && source "/home/matteo/.ghcup/env" 
-
-# Hey boys!
+PS1='[\u@\h \W]\$ ' [ -f "/home/matteo/.ghcup/env" ] && source "/home/matteo/.ghcup/env"
 
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:/home/matteo/.local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/home/matteo/.local/bin:/usr/local/tikzit/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/matteo/.oh-my-zsh"
@@ -109,5 +107,3 @@ export INFOPATH=/usr/local/texlive/2020/texmf-dist/doc/info:$INFOPATH
 export PATH=/usr/local/texlive/2020/bin/x86_64-linux:$PATH
 
 source ~/.config/aliasesrc
-
-

@@ -1,5 +1,4 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -174,6 +173,9 @@ for_window [class=".*"] border pixel 4
 
 # Gaps
 gaps inner 13
+# !! Had to add this due to polybar problems that led me to se up
+# override-redirect=true in the polybar config file
+gaps bottom 45
 
 
 # Setup colors from Xresources

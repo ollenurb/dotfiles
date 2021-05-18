@@ -137,10 +137,10 @@ type = internal/date
 interval = 5
 
 date =
-date-alt = " %A %d %b"
+date-alt = "%A %d %b"
 
 time = %H:%M
-time-alt = %H:%M
+time-alt =
 
 label = %date% %time%
 

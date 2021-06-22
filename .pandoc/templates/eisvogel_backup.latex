@@ -1,6 +1,6 @@
 %%
-% Copyright (c) 2017 - 2021, Pascal Wagler;
-% Copyright (c) 2014 - 2021, John MacFarlane
+% Copyright (c) 2017 - 2020, Pascal Wagler;
+% Copyright (c) 2014 - 2020, John MacFarlane
 %
 % All rights reserved.
 %
@@ -140,18 +140,22 @@ $else$
 $endif$
 $if(linestretch)$
 \usepackage{setspace}
+\setstretch{$linestretch$}
 $else$
 \usepackage{setspace}
 \setstretch{1.2}
 $endif$
+\usepackage{amsmath}
 \usepackage{ifxetex,ifluatex}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
 \else % if luatex or xetex
 $if(mathspec)$
   \ifxetex
+    \usepackage{amssymb}
     \usepackage{mathspec}
   \else
     \usepackage{unicode-math}
@@ -339,9 +343,6 @@ $highlighting-macros$
 $endif$
 $if(tables)$
 \usepackage{longtable,booktabs,array}
-$if(multirow)$
-\usepackage{multirow}
-$endif$
 \usepackage{calc} % for calculating minipage widths
 $if(beamer)$
 \usepackage{caption}
@@ -494,9 +495,6 @@ $if(csl-refs)$
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 $endif$
-$if(csquotes)$
-\usepackage{csquotes}
-$endif$
 
 $if(title)$
 \title{$title$$if(thanks)$\thanks{$thanks$}$endif$}
@@ -605,8 +603,8 @@ $endif$
 %
 % blockquote
 %
-\definecolor{blockquote-border}{RGB}{221,221,221}
-\definecolor{blockquote-text}{RGB}{119,119,119}
+\definecolor{blockquote-border}{RGB}{7,55,99}
+\definecolor{blockquote-text}{RGB}{34,34,34}
 \usepackage{mdframed}
 \newmdenv[rightline=false,bottomline=false,topline=false,linewidth=3pt,linecolor=blockquote-border,skipabove=\parskip]{customblockquote}
 \renewenvironment{quote}{\begin{customblockquote}\list{}{\rightmargin=0em\leftmargin=0em}%
@@ -863,7 +861,6 @@ $else$
   \renewcommand{\headrulewidth}{0.4pt}
   \renewcommand{\footrulewidth}{0.4pt}
 }
-
 \pagestyle{eisvogel-header-footer}
 $if(page-background)$
 \backgroundsetup{
@@ -945,7 +942,7 @@ $endif$
 
 $if(logo)$
 \noindent
-\includegraphics[width=$if(logo-width)$$logo-width$$else$35mm$endif$, left]{$logo$}
+\includegraphics[width=$if(logo-width)$$logo-width$$else$100$endif$pt, left]{$logo$}
 $endif$
 
 $if(titlepage-background)$

@@ -1,2 +1,2 @@
 # Dotfiles
-just my dotfiles.
+I kept this as minimal as possible.

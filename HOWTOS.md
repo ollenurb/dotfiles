@@ -31,3 +31,6 @@ config push
 ## Haskell
 * `ghcup` to manage `ghc` versions
 * `stack` to manage packages
+
+## Setting up WiFi connection (Laptop only)
+On the laptop if you have to change WiFi connection, just use `wifi-menu`. Configurations are stored under `/etc/netctl/`

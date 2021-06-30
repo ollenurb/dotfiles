@@ -43,7 +43,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right = date
+modules-right = updates-pacman-aurhelper date
 
 tray-position = right
 tray-padding = 2
@@ -94,9 +94,15 @@ modules-center = i3
 ;wm-restack = bspwm
 ;wm-restack = i3
 
+[module/updates-pacman-aurhelper]
+type = custom/script
+exec = ~/.scripts/updates-pacman-aurhelper.sh
+interval = 600
+format = ﮮ <label>
+
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:10:...%
 
 [module/i3]
 type = internal/i3

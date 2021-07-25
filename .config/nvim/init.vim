@@ -15,9 +15,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'kyoz/purify', { 'rtp': 'vim' }
     Plug 'morhetz/gruvbox'
 
-    " Pandoc
-    Plug 'vim-pandoc/vim-pandoc-syntax'
-    Plug 'vim-pandoc/vim-pandoc'
+    " Markdown
+    Plug 'plasticboy/vim-markdown'
 
     " Haskell related
     Plug 'neovimhaskell/haskell-vim'

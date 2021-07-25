@@ -5,3 +5,4 @@ alias wiki2html='find . -iname "*.md" -type f -exec sh -c '"'"'pandoc "${0}" -d 
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias wreboot='sudo grub-reboot 2 && sudo reboot' # Fast reboot to Windows 10
 alias vim='nvim'
+alias gpustatus='watch -n 1 nvidia-smi'

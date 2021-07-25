@@ -43,7 +43,7 @@ font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 
 modules-left = i3
 modules-center = xwindow
-modules-right = updates-pacman-aurhelper date
+modules-right = date updates-pacman-aurhelper
 
 tray-position = right
 tray-padding = 2
@@ -177,10 +177,10 @@ interval = 5
 date =
 date-alt = "%A %d %b"
 
-time = %H:%M
+time = "%H:%M"
 time-alt =
 
-label = %date% %time%
+label = "%date% %time% "
 
 [module/pulseaudio]
 type = internal/pulseaudio

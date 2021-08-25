@@ -2,6 +2,11 @@
 
 Here I save some useful informations that I sometimes need if I have to format/change computer.
 
+## Airplay Server
+To mirror the iPad screen, you need to run the UxPlay server:
+1. Start the avahi daemon: `sudo avahi-daemon`
+2. Start the Airplay server: `uxserver`
+
 ## Pandoc
 **Setting up**:
 1. Download `pandoc` using `stack` (remember to check the LTS version under `~/.stack/global-project/stack.yaml`)

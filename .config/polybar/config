@@ -17,16 +17,35 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:background:#222}
-foreground = ${xrdb:foreground:#222}
+background  = ${xrdb:background:#222}
+foreground  = ${xrdb:foreground:#222}
+Black       = ${xrdb:color0:#222}
+DarkRed     = ${xrdb:color1:#222}
+DarkGreen   = ${xrdb:color2:#222}
+DarkYellow  = ${xrdb:color3:#222}
+DarkBlue    = ${xrdb:color4:#222}
+DarkMagenta = ${xrdb:color5:#222}
+DarkCyan    = ${xrdb:color6:#222}
+LightGrey   = ${xrdb:color7:#222}
+DarkGrey    = ${xrdb:color8:#222}
+Red         = ${xrdb:color9:#222}
+Green       = ${xrdb:color10:#222}
+Yellow      = ${xrdb:color11:#222}
+Cyan        = ${xrdb:color12:#222}
+Magenta     = ${xrdb:color13:#222}
+White       = ${xrdb:color14:#222}
+
 inactive-foreground = ${xrdb:color8:#222}
 alert = ${xrdb:color1:#222}
 
 [bar/main]
-width = 100%
-height = 45
-bottom = true
-;fixed-center = true
+width = 100%:-26
+height = 38
+top = true
+fixed-center = true
+offset-x = 13
+border-bottom-size = 2
+border-bottom-color = ${colors.Cyan}
 
 monitor = DP-0
 background = ${colors.background}
@@ -41,8 +60,8 @@ padding-right = 0
 font-0 = "JetBrainsMono Nerd Font:style=Regular:size=14:antialias=true;3"
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 
-modules-left = i3
-modules-center = xwindow
+modules-left = logo xwindow
+modules-center = i3
 modules-right = date updates-pacman-aurhelper
 
 tray-position = right
@@ -51,6 +70,8 @@ tray-padding = 2
 
 ;wm-restack = bspwm
 ;wm-restack = i3
+
+module-margin-right = 1
 
 override-redirect = true
 
@@ -64,10 +85,13 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/secondary]
-width = 100%
-height = 45
-bottom = true
-;fixed-center = true
+width = 100%:-26
+height = 38
+top = true
+fixed-center = true
+offset-x = 13
+border-bottom-size = 2
+border-bottom-color = ${colors.Cyan}
 
 override-redirect = true
 monitor = HDMI-1
@@ -77,8 +101,6 @@ foreground = ${colors.foreground}
 padding-left = 1
 padding-right = 0
 
-;module-margin-left = 1
-;module-margin-right = 1
 
 font-0 = "JetBrainsMono Nerd Font:style=Regular:size=14:antialias=true;3"
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
@@ -94,19 +116,29 @@ modules-center = i3
 ;wm-restack = bspwm
 ;wm-restack = i3
 
+[module/logo]
+type=custom/text
+content = 
+content-foreground = ${colors.Cyan}
+content-padding = 1
+
+
 [module/updates-pacman-aurhelper]
 type = custom/script
 exec = ~/.scripts/updates-pacman-aurhelper.sh
 interval = 600
-format = ﮮ <label>
+format-prefix = 
+format-prefix-margin = 1
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:10:...%
+label = %title:0:30:...%
 
 [module/i3]
 type = internal/i3
-format = <label-state> <label-mode>
+format-prefix = "|"
+format-suffix = "|"
+format = <label-state><label-mode>
 index-sort = true
 wrapping-scroll = false
 
@@ -173,14 +205,14 @@ label = %percentage_used%%
 [module/date]
 type = internal/date
 interval = 5
-
+format-prefix = 
+format-prefix-margin = 1
 date =
-date-alt = "%A %d %b"
 
+date-alt = "%A, %d %b"
 time = "%H:%M"
 time-alt =
-
-label = "%date% %time% "
+label = "%date%%time%"
 
 [module/pulseaudio]
 type = internal/pulseaudio

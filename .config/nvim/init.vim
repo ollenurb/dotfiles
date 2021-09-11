@@ -1,26 +1,37 @@
 call plug#begin('~/.vim/plugged')
+    " Scala
+    Plug 'derekwyatt/vim-scala'
+    Plug 'scalameta/nvim-metals' " lsp support
+
+    " Enable language server
+    Plug 'neovim/nvim-lspconfig'
+
+    " Misc
     Plug 'tpope/vim-surround'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-fugitive'
-
-    " Fancy Discord integration (requires python3 support)
-    " Plug 'hugolgst/vimsence'
     Plug 'godlygeek/tabular'
     Plug 'vim-latex/vim-latex'
     Plug 'vimwiki/vimwiki'
     Plug 'ntpeters/vim-better-whitespace'
-    Plug 'itchyny/lightline.vim'
+    Plug 'nvim-lua/completion-nvim'
 
-    " Colorschemes
-    Plug 'kyoz/purify', { 'rtp': 'vim' }
-    Plug 'morhetz/gruvbox'
+    " Stats (www.wakatime.com)
+    Plug 'wakatime/vim-wakatime'
 
     " Markdown
     Plug 'plasticboy/vim-markdown'
 
-    " Haskell related
+    " Haskell
     Plug 'neovimhaskell/haskell-vim'
     Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
+
+    " Fancy stuff
+    Plug 'kyoz/purify', { 'rtp': 'vim' }
+    Plug 'morhetz/gruvbox'
+    Plug 'itchyny/lightline.vim'
+    Plug 'ryanoasis/vim-devicons'
+
 call plug#end()
 
 " Basic stuff
@@ -37,11 +48,6 @@ set smartcase
 set mouse=a
 set tabstop=2 softtabstop=0 expandtab shiftwidth=4 smarttab
 
-" VimSence
-" let g:vimsence_small_text = 'NeoVim'
-" let g:vimsence_small_image = 'neovim'
-" let g:vimsence_custom_icons = {'haskell': 'hs', 'vimwiki': 'md'}
-
 " MaxWidth on markdown files
 au BufNewFile,BufRead *.md
     \ set textwidth=100
@@ -56,3 +62,48 @@ let g:lightline = {
 " Better Whitespace
 let g:better_whitespace_enabled=1
 
+" Language Server Protocol-Related
+set shortmess-=F
+
+"-----------------------------------------------------------------------------
+" nvim-metals setup with a few additions such as nvim-completions
+"-----------------------------------------------------------------------------
+:lua << EOF
+  metals_config = require'metals'.bare_config
+  metals_config.settings = {
+     showImplicitArguments = true,
+     excludedPackages = {
+       "akka.actor.typed.javadsl",
+       "com.github.swagger.akka.javadsl"
+     }
+  }
+
+  metals_config.on_attach = function()
+    require'completion'.on_attach();
+  end
+
+  metals_config.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+      virtual_text = {
+        prefix = '',
+      }
+    }
+  )
+EOF
+
+if has('nvim-0.5')
+  augroup lsp
+    au!
+    au FileType scala,sbt lua require('metals').initialize_or_attach(metals_config)
+  augroup end
+endif
+
+"-----------------------------------------------------------------------------
+" completion-nvim settings
+"-----------------------------------------------------------------------------
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect

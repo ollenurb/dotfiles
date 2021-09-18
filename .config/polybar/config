@@ -136,8 +136,6 @@ label = %title:0:30:...%
 
 [module/i3]
 type = internal/i3
-format-prefix = "|"
-format-suffix = "|"
 format = <label-state><label-mode>
 index-sort = true
 wrapping-scroll = false

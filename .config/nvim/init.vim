@@ -29,15 +29,18 @@ call plug#begin('~/.vim/plugged')
     " Fancy stuff
     Plug 'kyoz/purify', { 'rtp': 'vim' }
     Plug 'morhetz/gruvbox'
-    Plug 'itchyny/lightline.vim'
+    " Plug 'itchyny/lightline.vim'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
     Plug 'ryanoasis/vim-devicons'
+    Plug 'vifm/vifm.vim'
 
 call plug#end()
 
 " Basic stuff
 filetype plugin on
 syntax on
-colorscheme purify
+colorscheme gruvbox
 set noswapfile
 set ignorecase
 set encoding=utf-8
@@ -53,14 +56,21 @@ au BufNewFile,BufRead *.md
     \ set textwidth=100
 
 " Statusline config
-set laststatus=2
-set noshowmode
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ }
+" set laststatus=2
+" set noshowmode
+" let g:lightline = {
+"       \ 'colorscheme': 'wombat',
+"       \ }
 
 " Better Whitespace
 let g:better_whitespace_enabled=1
+
+" ----------------------------------------------------------------------------
+" Airline settings
+" ----------------------------------------------------------------------------
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+" ----------------------------------------------------------------------------
 
 " Language Server Protocol-Related
 set shortmess-=F

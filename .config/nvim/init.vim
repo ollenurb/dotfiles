@@ -1,10 +1,18 @@
 call plug#begin('~/.vim/plugged')
+    " Lua Library required by some plugins
+    Plug 'nvim-lua/plenary.nvim'
     " Scala
     Plug 'derekwyatt/vim-scala'
-    Plug 'scalameta/nvim-metals' " lsp support
-
-    " Enable language server
+    " Enable Language Server Support
     Plug 'neovim/nvim-lspconfig'
+    " Autocomplete (to be used by LSP's)
+    Plug 'ms-jpq/coq_nvim'
+    " Tree Sitter (better syntax highlighting)
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Fuzzy Finder
+    Plug 'nvim-telescope/telescope.nvim'
+    " Fancy motions
+    Plug 'ggandor/lightspeed.nvim'
 
     " Misc
     Plug 'tpope/vim-surround'
@@ -14,7 +22,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-latex/vim-latex'
     Plug 'vimwiki/vimwiki'
     Plug 'ntpeters/vim-better-whitespace'
-    Plug 'nvim-lua/completion-nvim'
 
     " Stats (www.wakatime.com)
     Plug 'wakatime/vim-wakatime'
@@ -24,17 +31,14 @@ call plug#begin('~/.vim/plugged')
 
     " Haskell
     Plug 'neovimhaskell/haskell-vim'
-    Plug 'ndmitchell/ghcid', { 'rtp': 'plugins/nvim' }
 
-    " Fancy stuff
-    Plug 'kyoz/purify', { 'rtp': 'vim' }
+    " Eye Candies
+    Plug 'sainnhe/gruvbox-material'
     Plug 'morhetz/gruvbox'
-    " Plug 'itchyny/lightline.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'ryanoasis/vim-devicons'
     Plug 'vifm/vifm.vim'
-
 call plug#end()
 
 " Basic stuff
@@ -50,17 +54,11 @@ set nobackup
 set smartcase
 set mouse=a
 set tabstop=2 softtabstop=0 expandtab shiftwidth=4 smarttab
+let mapleader=" "
 
 " MaxWidth on markdown files
 au BufNewFile,BufRead *.md
-    \ set textwidth=100
-
-" Statusline config
-" set laststatus=2
-" set noshowmode
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat',
-"       \ }
+    \ set textwidth=80
 
 " Better Whitespace
 let g:better_whitespace_enabled=1
@@ -70,50 +68,21 @@ let g:better_whitespace_enabled=1
 " ----------------------------------------------------------------------------
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
+let g:airline_detect_whitespace = 0
 " ----------------------------------------------------------------------------
-
-" Language Server Protocol-Related
+" Language Server Protocol
+" ----------------------------------------------------------------------------
+luafile ~/.config/nvim/lsp_configs.lua
 set shortmess-=F
-
 "-----------------------------------------------------------------------------
-" nvim-metals setup with a few additions such as nvim-completions
+" Custom Bindings
 "-----------------------------------------------------------------------------
-:lua << EOF
-  metals_config = require'metals'.bare_config
-  metals_config.settings = {
-     showImplicitArguments = true,
-     excludedPackages = {
-       "akka.actor.typed.javadsl",
-       "com.github.swagger.akka.javadsl"
-     }
-  }
-
-  metals_config.on_attach = function()
-    require'completion'.on_attach();
-  end
-
-  metals_config.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-      virtual_text = {
-        prefix = '',
-      }
-    }
-  )
-EOF
-
-if has('nvim-0.5')
-  augroup lsp
-    au!
-    au FileType scala,sbt lua require('metals').initialize_or_attach(metals_config)
-  augroup end
-endif
-
-"-----------------------------------------------------------------------------
-" completion-nvim settings
-"-----------------------------------------------------------------------------
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>bn :bn<CR>
 
 " Set completeopt to have a better completion experience
 set completeopt=menuone,noinsert,noselect

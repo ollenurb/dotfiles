@@ -7,17 +7,16 @@ font pango:Iosefka Nerd Font 13
 
 # Launch wifi systray applet
 exec --no-startup-id nm-applet
-
 # Launch picom
 exec --no-startup-id picom -b
-
 # Start polybar
 exec_always --no-startup-id /usr/bin/polybarstart.sh
 # Start dunst notification daemon
 exec_always --no-startup-id /usr/bin/dunst
+# Start Redshift
+exec --no-startup-id /usr/bin/redshift &
 # Set background
 exec --no-startup-id /home/matteo/.scripts/randombg.sh &
-
 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
@@ -50,10 +49,10 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+h focus left
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -62,10 +61,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -74,10 +73,10 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $mod+h split h
+bindsym $mod+v split h
 
 # split in vertical orientation
-bindsym $mod+v split v
+bindsym $mod+c split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
@@ -174,13 +173,13 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Remove windows titlebars due to i3 gaps
-for_window [class=".*"] border pixel 4
+for_window [class=".*"] border pixel 1
 
 # Gaps
 gaps inner 13
 # !! Had to add this due to polybar problems that led me to se up
 # override-redirect=true in the polybar config file
-gaps top 40
+# gaps top 43
 
 # Setup colors from Xresources
 set_from_resource $backgr    background

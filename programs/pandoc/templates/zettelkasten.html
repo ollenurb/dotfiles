@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="generator" content="pandoc">
+        $if(author)$<meta name="author" content="$author$">$endif$
+        $if(description)$<meta name="description" content="$description$">$endif$
+        $if(title)$<title>$title$</title>$endif$
+        <!-- Include Base CSS -->
+        <link href="https://unpkg.com/basscss@8.0.2/css/basscss.min.css" rel="stylesheet"/>
+        <!-- Get Google fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        $if(highlighting-css)$
+        <style type="text/css">
+            $highlighting-css$
+        </style>
+        $endif$
+
+        $for(header-includes)$
+        $header-includes$
+        $endfor$
+        $if(math)$
+        $math$
+        $endif$
+        <style>
+        :root {
+          --bg: #282828;
+          --bg-secondary: #737373;
+          --fg: #fbf1c7;
+          --fg-secondary: #83a598;
+          --tag-fg: #282828;
+          --tag-bg: #83a598;
+          --source-code-bg: #fbf1c7;
+          --source-code-fg: #282828;
+          --blockquote-color: #a89984;
+        }
+
+        html {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-secondary);
+            line-height: 1.6;
+            color: var(--fg);
+            font-size: 11pt;
+            font-weight: 300;
+        }
+
+        #bibliography { font-size: 16pt; }
+
+        .card {
+            background-color: var(--bg);
+            filter: drop-shadow(15px 15px 4px #4d4d4d);
+        }
+
+        .border-left { border-color: var(--fg); }
+        .border { border-color: var(--fg); }
+        .rounded { border-radius: 10px; }
+
+        hr {
+            color: var(--fg);
+            background-color: var(--fg);
+            border: none;
+            height: 1px;
+        }
+
+        ul {
+            padding-left: 1.5em;
+        }
+
+        ol {
+            padding-left: 1.5em;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--fg-secondary);
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .sourceCode {
+            background-color: var(--source-code-bg);
+            border-radius: 0.3em;
+        }
+
+        div.sourceCode {
+            margin: 0 1em;
+        }
+
+        code.sourceCode {
+            color: var(--source-code-fg);
+            border-radius: 0.2em;
+            padding: 2px 4px;
+        }
+
+        pre.sourceCode {
+            margin: 16px;
+        }
+
+        code {
+            display: inline-block;
+            color: var(--source-code-fg);
+            background-color: var(--source-code-bg);
+            border-radius: 2px;
+            padding: 0px 2px;
+        }
+
+        .title {
+            margin-top: 0px;
+            margin-bottom: 4px;
+        }
+
+        .tag {
+            background-color: var(--tag-bg);
+            color: var(--tag-fg);
+            display: inline-block;
+            border-radius: 2px;
+            margin-bottom: 4px;
+            padding: 0px 4px;
+        }
+
+        blockquote {
+            padding-left: 0.4em;
+            border-color: var(--blockquote-color);
+            border-style: solid;
+            border-width: 1px 1px 1px 8px;
+            border-radius: 0 0.3em 0.3em 0;
+        }
+    </style>
+    </head>
+    <!-- Body Content -->
+    <body>
+      $for(include-before)$
+      $include-before$
+      $endfor$
+      <div class="clearfix px3 py2 lg-px4">
+          <div class="lg-col-8
+                      md-col-10
+                      sm-col-12
+                      mx-auto
+                      rounded
+                      card
+                      p2">
+                  $if(title)$
+                  <h1 class="title">$title$</h1>
+                  $endif$
+                  <div class="metablock">
+                      $if(keywords)$
+                      $for(keywords)$
+                      <a href="https://scholar.google.com/scholar?&q=$keywords$" class="tag">#$keywords$</a>
+                      $endfor$
+                      $endif$
+                      $if(date)$<br>Date: $date$$endif$
+                  </div> <!-- End Metadata Block -->
+                  <hr>
+$body$
+              </div>
+          </div>
+      </div>
+      $for(include-after)$
+      $include-after$
+      $endfor$
+    </body>
+</html>

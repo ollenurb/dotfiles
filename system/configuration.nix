@@ -9,14 +9,16 @@ let
   };
 in
 {
-  imports =
-    [
+  imports = [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       # Include the window manager
       ./wm/i3.nix
     ];
 
+  nixpkgs.config.allowUnfree = true;
+  # Enable opengl
+  hardware.opengl.enable = true;
 
   # Use the GRUB bootloader.
   boot.loader = {

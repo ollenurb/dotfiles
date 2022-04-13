@@ -14,7 +14,7 @@
       enable = true;
       layout = "us";
       autorun = true;
-      # videoDrivers = ["intel"];
+      videoDrivers = ["nvidia"];
       # Display Manager configurations
       displayManager = {
         defaultSession = "none+i3";

@@ -27,19 +27,22 @@ in
         top = true;
         background = "${config.colors.background}";
         foreground = "${config.colors.foreground}";
-        padding = 0;
         font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
         font-1 = "Hack Nerd Font:style=Mono:pixelsize=24:antialias=true;3";
         font-2 = "Hack Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
         font-3 = unifont:fontformat=truetype:size=8:antialias=false;
-        modules-left = "i3";
+        modules-left = "separator i3";
         modules-center = "date";
-        modules-right = "pulseaudio memory ";
+        modules-right = "cpu separator filesystem separator pulseaudio separator";
         tray-position = "right";
-        tray-padding = 1;
         override-redirect = false;
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
+      };
+
+      "module/separator" = {
+        type = "custom/text";
+        content = " ";
       };
 
       "module/i3" = {
@@ -49,30 +52,19 @@ in
         wrapping-scroll = false;
         pin-workspaces = false;
         strip-wsnumbers = true;
-        ws-icon-0 = "1;";
-        ws-icon-1 = "2;";
-        ws-icon-2 = "3;";
-        ws-icon-3 = "4;";
-        ws-icon-4 = "5;";
-        ws-icon-5 = "6;";
-        ws-icon-6 = "7;";
-        ws-icon-7 = "8;";
-        ws-icon-8 = "9;";
-        ws-icon-9 = "10;";
-
         label.mode-padding = 1;
         label-mode-foreground = "${config.colors.color0}";
         label-mode-background = "${config.colors.color12}";
 
         # focused = Active workspace on focused monitor
-        label-focused = "%index% %icon%";
+        label-focused = "%index%";
         label-focused-padding = 1;
-        # label-focused-foreground = ${self.label-mode-foreground}
+        label-focused-foreground = "${config.colors.color0}";
+        label-focused-background = "${config.colors.foreground}";
 
         # unfocused = Inactive workspace on any monitor
         label-unfocused = "%index%";
         label-unfocused-padding = 1;
-        # label-unfocused-foreground = ${self.label-mode-foreground}
 
         # visible = Active workspace on unfocused monitor
         label-visible = "%index%";
@@ -82,24 +74,26 @@ in
         label-urgent = "%index% ";
         label-urgent-foreground = "${config.colors.color9}";
         label-urgent-padding = 1;
-
-        label-separator = "|";
-        label-separator-foreground = "${config.colors.color0}";
       };
 
       "module/date" = {
         type = "internal/date";
+        format = "<label>";
         interval = 5;
         date-alt = "%A %d %b";
         time = "%H:%M";
-        label = "%date% %time% ";
+        label = "%date%%time%";
         label-padding = 1;
-        label-background = "${config.colors.color12}";
+        format-background = "${config.colors.color12}";
+        format-foreground = "${config.colors.color0}";
       };
 
       "module/pulseaudio" = {
         type = "internal/pulseaudio";
         format-volume = "<ramp-volume> <label-volume>";
+        format-volume-background = "${config.colors.foreground}";
+        format-volume-foreground = "${config.colors.background}";
+        format-volume-padding = 1;
         # format-volume-foreground = "${config.colors.color0}";
         # format-volume-background = "${config.colors.color12}";
         label-volume = "%percentage%%";
@@ -108,6 +102,24 @@ in
         ramp.volume = ["奄" "奔" "墳"];
         click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
       };
+
+      "module/filesystem" = {
+        type = "internal/fs";
+        mount-0 = "/";
+        fixed-values = false;
+        format-mounted = " <label-mounted>";
+        label-mounted = "%used%/%total%";
+      };
+
+      "module/cpu" = {
+        type = "internal/cpu";
+        format = " <label>";
+        label = "%percentage%%";
+        format-background = "${config.colors.foreground}";
+        format-foreground = "${config.colors.background}";
+        format-padding = 1;
+      };
+
     };
   };
 }

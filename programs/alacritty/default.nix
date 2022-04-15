@@ -12,7 +12,7 @@
 
       font = {
         normal.family = "Hack Nerd Font Mono";
-        size = 12.0;
+        size = 14.0;
       };
 
       shell = { program = "${pkgs.zsh}/bin/zsh"; };

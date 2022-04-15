@@ -5,42 +5,46 @@ let
     nix-doc            		      # nix documentation search tool
     pavucontrol        		      # pulseaudio control
     firefox            		      # browser
-    spotify                           # Music player
-    feh                               # Image viewer
-    tdesktop                          # Telegram
-    mpv                               # Video Player
-    rofi-power-menu                   # Power menu
-  ];
-
-  tools = with pkgs; [
-    pandoc                            # Documents generator
+    spotify                     # Music player
+    feh                         # Image viewer
+    tdesktop                    # Telegram
+    mpv                         # Video Player
+    rofi-power-menu             # Power menu
+    obsidian                    # Digital brain
+    anki-bin                    # Flashcards
+    jetbrains.idea-ultimate     # IntelliJ
+    discord                     # Discord
   ];
 
   utilities = with pkgs; [
-    entr                              # utility that watch for file changes
-    ripgrep                           # faster grep
-    htop                              # better top
+    pandoc                      # Documents generator
+    entr                        # utility that watch for file changes
+    ripgrep                     # faster grep
+    htop                        # better top
     killall              	      # kill all processes
     duf                 	      # disk usage/free utility
     fd                  	      # "find" for files
-    fzf                               # fuzzy finder
+    fzf                         # fuzzy finder
     exa                		      # a better ls
     libnotify          		      # notify-send command
-    gnumake                           # Make utility
+    gnumake                     # Make utility
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [
-    brittany                          # code formatter
-    cabal-install                     # cabal
-    ghc                               # compiler
-    haskell-language-server           # hls
+    brittany                    # code formatter
+    cabal-install               # cabal
+    ghc                         # compiler
+    haskell-language-server     # hls
+    cabal2nix                   # converts .cabal > .nix
   ];
 
 in {
+  imports = (import ./programs) ++ (import ./shell) ++ [(import ./theming/onedark.nix)];
+
   home = {
     username = "matteo";
     homeDirectory = "/home/matteo";
-    packages = programs ++ utilities;
+    packages = programs ++ utilities ++ haskellPkgs;
     sessionVariables = {
       EDITOR = "nvim";
     };
@@ -59,13 +63,7 @@ in {
     };
   };
 
-  imports =
-    (import ./programs) ++
-    (import ./shell) ++
-    [(import ./theming/onedark.nix)];
-
   programs = {
-    bat.enable = true;
     git = {
       enable = true;
       userName = "Ollenurb";

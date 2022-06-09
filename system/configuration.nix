@@ -149,7 +149,7 @@ in
   # networking.firewall.allowedTCPPorts = [ 7000 7100 ];
   # networking.firewall.allowedUDPPorts = [ 6000 6001 7011 ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

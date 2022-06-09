@@ -2,40 +2,45 @@
 
 let
   programs = with pkgs; [
-    nix-doc            		      # nix documentation search tool
-    pavucontrol        		      # pulseaudio control
-    firefox            		      # browser
-    spotify                     # Music player
-    feh                         # Image viewer
-    tdesktop                    # Telegram
-    mpv                         # Video Player
-    rofi-power-menu             # Power menu
-    obsidian                    # Digital brain
-    anki-bin                    # Flashcards
-    jetbrains.idea-ultimate     # IntelliJ
-    discord                     # Discord
+    nix-doc                           # nix documentation search tool
+    pavucontrol                       # pulseaudio control
+    firefox                           # browser
+    spotify                           # Music player
+    feh                               # Image viewer
+    tdesktop                          # Telegram
+    mpv                               # Video Player
+    rofi-power-menu                   # Power menu
+    obsidian                          # Digital brain
+    anki-bin                          # Flashcards
+    jetbrains.idea-ultimate           # IntelliJ
+    discord                           # Discord
+    zathura                           # .pdf viewer
+    element-desktop                   # Matrix.org client
+    calibre                           # Ebook Library
+    weechat                           # IRC Client
   ];
 
   utilities = with pkgs; [
-    pandoc                      # Documents generator
-    entr                        # utility that watch for file changes
-    ripgrep                     # faster grep
-    htop                        # better top
-    killall              	      # kill all processes
-    duf                 	      # disk usage/free utility
-    fd                  	      # "find" for files
-    fzf                         # fuzzy finder
-    exa                		      # a better ls
-    libnotify          		      # notify-send command
-    gnumake                     # Make utility
+    pandoc                            # Documents generator
+    entr                              # utility that watch for file changes
+    ripgrep                           # faster grep
+    htop                              # better top
+    killall                           # kill all processes
+    duf                               # disk usage/free utility
+    fd                                # "find" for files
+    fzf                               # fuzzy finder
+    exa                               # a better ls
+    libnotify                         # notify-send command
+    gnumake                           # Make utility
+    texlive.combined.scheme-full      # LaTeX
   ];
 
   haskellPkgs = with pkgs.haskellPackages; [
-    brittany                    # code formatter
-    cabal-install               # cabal
-    ghc                         # compiler
-    haskell-language-server     # hls
-    cabal2nix                   # converts .cabal > .nix
+    brittany                          # code formatter
+    cabal-install                     # cabal
+    ghc                               # compiler
+    haskell-language-server           # hls
+    cabal2nix                         # converts .cabal > .nix
   ];
 
 in {

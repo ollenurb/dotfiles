@@ -10,15 +10,17 @@ let
 in
 {
   imports = [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      # Include the window manager
-      ./wm/i3.nix
-    ];
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    # Include the window manager
+    ./wm/i3.nix
+  ];
 
   nixpkgs.config.allowUnfree = true;
   # Enable opengl
   hardware.opengl.enable = true;
+  # Enable ADB
+  programs.adb.enable = true;
 
   # Use the GRUB bootloader.
   boot.loader = {
@@ -26,6 +28,7 @@ in
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
+      useOSProber = true;
       # splashImage = ../theming/grub_bg.png;
     };
     efi.canTouchEfiVariables = true;
@@ -78,12 +81,14 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.matteo = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "adbusers"]; # Enable ‘sudo’ and `adb` for the user.
     shell = pkgs.zsh;
   };
 
   # Nix daemon config
   nix = {
+    package = pkgs.nixFlakes;
+
     # Automate `nix-store --optimise`
     autoOptimiseStore = true;
 
@@ -98,6 +103,7 @@ in
     extraOptions = ''
       keep-outputs     = true
       keep-derivations = true
+      experimental-features = nix-command flakes
     '';
 
     # Required by Cachix to be used as non-root user

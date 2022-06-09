@@ -9,8 +9,16 @@ let g:strip_whitespace_on_save=1
 " Tree sitter settings
 " ----------------------------------------------------------------------------
 lua << EOF
-    require'nvim-treesitter.configs'.setup {
-        ensure_installed = "maintained",
+    require('nvim-treesitter.configs').setup {
+        ensure_installed = {
+            'c',
+            'scala',
+            'kotlin',
+            'haskell',
+            'markdown',
+            'lua',
+            'latex'
+        },
         highlight = {
             enable = true,
         },

@@ -30,6 +30,7 @@ in
         ${lib.strings.fileContents ./lsp.lua}
         ${lib.strings.fileContents ./plugins/lualine.lua}
         ${lib.strings.fileContents ./plugins/cmp-nvim.lua}
+        ${lib.strings.fileContents ./plugins/nvim-tree.lua}
         EOF
       ''
     ];
@@ -57,6 +58,7 @@ in
       nvim-treesitter
       vim-nix
       vim-markdown
+      nvim-tree-lua
 
       # Fuzzy Finder
       telescope-nvim

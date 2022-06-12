@@ -30,6 +30,7 @@ in
         ${lib.strings.fileContents ./plugins/lualine.lua}
         ${lib.strings.fileContents ./plugins/cmp-nvim.lua}
         ${lib.strings.fileContents ./plugins/nvim-tree.lua}
+        ${lib.strings.fileContents ./plugins/treesitter.lua}
         EOF
       ''
     ];

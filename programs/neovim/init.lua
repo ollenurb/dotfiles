@@ -14,7 +14,6 @@ function imap(shortcut, command)
     map('i', shortcut, command)
 end
 
-
 -- General configuration
 vim.cmd[[colorscheme onedark]]
 o.swapfile = false
@@ -47,7 +46,7 @@ local set_max_width = function() o.textwidth = 80 end
 
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = {"*.md", "*.txt"},
-    callback = set_max_width,
+    callback = function() o.textwidth = 80 end,
 })
 
 -- Plugins Options

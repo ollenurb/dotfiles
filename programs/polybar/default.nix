@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib ,... }:
 
 let
   myPolybar = pkgs.polybar.override {
@@ -8,6 +8,7 @@ let
     githubSupport = true;
     pulseSupport = true;
   };
+  alphaBg = "#B4" + lib.removePrefix "#" config.colors.background;
 in
 {
   services.polybar = {
@@ -25,7 +26,8 @@ in
         width = "100%";
         height = 30;
         top = true;
-        background = "${config.colors.background}";
+        /* I've put some transparency by appending its HEX alpha value */
+        background = "${alphaBg}";
         foreground = "${config.colors.foreground}";
         font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
         font-1 = "Hack Nerd Font:style=Mono:pixelsize=24:antialias=true;3";
@@ -38,6 +40,7 @@ in
         override-redirect = false;
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
+        line-size = 2;
       };
 
       "module/separator" = {
@@ -53,14 +56,11 @@ in
         pin-workspaces = false;
         strip-wsnumbers = true;
         label.mode-padding = 1;
-        label-mode-foreground = "${config.colors.color0}";
-        label-mode-background = "${config.colors.color12}";
 
         # focused = Active workspace on focused monitor
         label-focused = "%index%";
         label-focused-padding = 1;
-        label-focused-foreground = "${config.colors.color0}";
-        label-focused-background = "${config.colors.foreground}";
+        label-focused-underline = "${config.colors.foreground}";
 
         # unfocused = Inactive workspace on any monitor
         label-unfocused = "%index%";
@@ -84,15 +84,11 @@ in
         time = "%H:%M";
         label = "%date%%time%";
         label-padding = 1;
-        format-background = "${config.colors.color12}";
-        format-foreground = "${config.colors.color0}";
       };
 
       "module/pulseaudio" = {
         type = "internal/pulseaudio";
         format-volume = "<ramp-volume> <label-volume>";
-        format-volume-background = "${config.colors.foreground}";
-        format-volume-foreground = "${config.colors.background}";
         format-volume-padding = 1;
         # format-volume-foreground = "${config.colors.color0}";
         # format-volume-background = "${config.colors.color12}";
@@ -115,8 +111,6 @@ in
         type = "internal/cpu";
         format = " <label>";
         label = "%percentage%%";
-        format-background = "${config.colors.foreground}";
-        format-foreground = "${config.colors.background}";
         format-padding = 1;
       };
 

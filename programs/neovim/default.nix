@@ -23,10 +23,9 @@ in
 
     # Configurations are stored in separate files
     extraConfig = builtins.concatStringsSep "\n" [
-      (lib.strings.fileContents ./base.vim)
-      (lib.strings.fileContents ./plugins/plugins.vim)
       ''
         lua << EOF
+        ${lib.strings.fileContents ./init.lua}
         ${lib.strings.fileContents ./lsp.lua}
         ${lib.strings.fileContents ./plugins/lualine.lua}
         ${lib.strings.fileContents ./plugins/cmp-nvim.lua}

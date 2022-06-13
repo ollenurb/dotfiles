@@ -11,14 +11,14 @@
     fadeDelta = 5;
     fadeSteps = [ "0.03"  "0.03" ];
     extraOptions = ''
-    xrender-sync-fence = true;
-    blur-strength = 6;
+      xrender-sync-fence = true;
     '';
     blur = true;
     opacityRule = [
-      "90:class_g = 'URxvt'"
-      "90:name = 'Alacritty' && focused"
-      "90:class_g = 'Alacritty' && !focused"
+      "85:class_g = 'URxvt'"
+      "85:name = 'Alacritty' && focused"
+      "85:class_g = 'Alacritty' && !focused"
+      "85:class_g = 'Polybar'"
     ];
   };
 }

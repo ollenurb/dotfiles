@@ -35,7 +35,7 @@ in
   };
 
   # Define your hostname
-  networking.hostName = "turing";
+  networking.hostName = "pluto";
 
   # Setup network manager and nm-applet
   networking.networkmanager.enable = true;

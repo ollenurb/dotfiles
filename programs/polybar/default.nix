@@ -8,7 +8,7 @@ let
     githubSupport = true;
     pulseSupport = true;
   };
-  alphaBg = "#B4" + lib.removePrefix "#" config.colors.background;
+  alphaBg = "#64" + lib.removePrefix "#" config.colors.background;
 in
 {
   services.polybar = {
@@ -27,7 +27,7 @@ in
         height = 30;
         top = true;
         /* I've put some transparency by appending its HEX alpha value */
-        background = "${alphaBg}";
+        background = "${config.colors.background}";
         foreground = "${config.colors.foreground}";
         font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
         font-1 = "Hack Nerd Font:style=Mono:pixelsize=24:antialias=true;3";

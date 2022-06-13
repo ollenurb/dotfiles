@@ -41,9 +41,11 @@ nmap("<Leader>fg", "<cmd>Telescope live_grep<cr>")
 nmap("<Leader>fb", "<cmd>Telescope buffers<cr>  ")
 nmap("<Leader>fh", "<cmd>Telescope help_tags<cr>")
 
--- Set MaxWidth on Markdown and Text files
-local set_max_width = function() o.textwidth = 80 end
+nmap("C-n", "<cmd>NvimTreeToggle<cr>")
+nmap("<Leader>r", "<cmd>NvimTreeRefresh<cr>")
+nmap("<Leader>n", "<cmd>NvimTreeFindFile<cr>")
 
+-- Set MaxWidth on Markdown and Text files
 vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = {"*.md", "*.txt"},
     callback = function() o.textwidth = 80 end,

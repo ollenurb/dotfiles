@@ -31,6 +31,7 @@ in
         ${lib.strings.fileContents ./plugins/cmp-nvim.lua}
         ${lib.strings.fileContents ./plugins/nvim-tree.lua}
         ${lib.strings.fileContents ./plugins/treesitter.lua}
+        ${lib.strings.fileContents ./plugins/which-key.lua}
         EOF
       ''
     ];
@@ -64,6 +65,7 @@ in
       telescope-nvim
 
       # Misc
+      which-key-nvim
       delimitMate # auto bracket
       vim-commentary
       vim-fugitive

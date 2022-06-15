@@ -13,7 +13,6 @@ let
     obsidian                          # Digital brain
     anki-bin                          # Flashcards
     jetbrains.idea-ultimate           # IntelliJ
-    discord                           # Discord
     zathura                           # .pdf viewer
     element-desktop                   # Matrix.org client
     calibre                           # Ebook Library

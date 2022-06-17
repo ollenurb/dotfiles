@@ -7,4 +7,5 @@
   ./dunst
   ./lf
   ./redshift
+  ./i3
 ]

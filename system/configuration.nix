@@ -9,12 +9,35 @@ let
   };
 in
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    # Include the window manager
-    ./wm/i3.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
+
+  # Enabling dconf allow the use of gsettings
+  programs.dconf.enable = true;
+  services = {
+    dbus = {
+      enable = true;
+      packages = [ pkgs.dconf ];
+    };
+    # Xorg-configurations
+    xserver = {
+      enable = true;
+      layout = "us";
+      autorun = true;
+      videoDrivers = ["nvidia"];
+      # Display Manager configurations
+      displayManager = {
+        defaultSession = "none+i3";
+        autoLogin.enable = true;
+        autoLogin.user = "matteo";
+        lightdm.greeter.enable = false;
+      };
+      # i3-configurations
+      windowManager.i3 = {
+        enable = true;
+        package = pkgs.i3-gaps;
+      };
+    };
+  };
 
   nixpkgs.config.allowUnfree = true;
   # Enable opengl

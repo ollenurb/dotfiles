@@ -2,7 +2,8 @@ local o = vim.opt
 local g = vim.g
 
 -- General configuration
-vim.cmd[[colorscheme onedark]]
+require('onedark').load()
+
 o.swapfile = false
 o.showmode = false
 o.ignorecase = true

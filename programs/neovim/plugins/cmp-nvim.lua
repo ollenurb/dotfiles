@@ -1,31 +1,60 @@
-local cmp = require'cmp'
+local cmp = require('cmp')
+local lspkind = require('lspkind')
+
 cmp.setup({
-    -- snippet = {
-    --   -- REQUIRED - you must specify a snippet engine
-    --   expand = function(args)
-    --     vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-    --     -- require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
-    --     -- vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-    --     -- require'snippy'.expand_snippet(args.body) -- For `snippy` users.
-    --   end,
-    -- },
     mapping = {
-      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-p>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-n>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+
+      ['<C-k>'] = cmp.mapping.select_prev_item(),
+      ['<C-j>'] = cmp.mapping.select_next_item(),
+
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-      ['<C-e>'] = cmp.mapping({
-        i = cmp.mapping.abort(),
-        c = cmp.mapping.close(),
+      ['<C-y>'] = cmp.config.disable,
+      ['<C-e>'] = cmp.mapping.close(),
+
+      ['<CR>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Replace,
+        select = true
       }),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+
+      ["<Tab>"] = cmp.mapping(function(fallback)
+      -- This little snippet will confirm with tab, and if no entry is selected, will confirm the first item
+        if cmp.visible() then
+          local entry = cmp.get_selected_entry()
+	        if not entry then
+	          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+	        else
+	          cmp.confirm()
+	        end
+        else
+          fallback()
+        end
+      end, {'i', 's', 'c',}),
     },
+
+    window = {
+      completion = cmp.config.window.bordered(),
+      documentation = cmp.config.window.bordered(),
+    },
+
+    formatting = {
+      format = lspkind.cmp_format({
+        mode = "symbol_text",
+        menu = ({
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          luasnip = "[LuaSnip]",
+          nvim_lua = "[Lua]",
+          latex_symbols = "[Latex]",
+        })
+      }),
+    },
+
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' }, -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
+      { name = 'vsnip' },
+      { name = 'treesitter'},
       }, {
       { name = 'buffer' },
     })
@@ -52,8 +81,3 @@ local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 lspconfig.util.default_config.capabilies = capabilities
-
--- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
--- require('lspconfig')['metals'].setup {
---    ...
--- }

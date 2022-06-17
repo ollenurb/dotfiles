@@ -13,11 +13,18 @@ let
 
   # always installs latest version
   plugin = pluginGit "HEAD";
+
+  # Language Servers to be installed
+  languageServers = with pkgs; [
+    metals                    # Scala
+    haskell-language-server   # Haskell
+  ];
+
 in
 {
   programs.neovim = {
     enable      = true;
-    withPython3 = true; # for plugins
+    withPython3 = true;
     vimAlias    = true;
     viAlias     = true;
 
@@ -41,17 +48,19 @@ in
       tree-sitter
       gcc
       nodejs
-    ];
+    ] ++ languageServers;
 
     # Fetch plugins from pkgs or git using the (plugin) function
     plugins = with pkgs.vimPlugins; [
       # Language Server Protocol - Related
       nvim-lspconfig
-      cmp-nvim-lsp
-      cmp-buffer
-      cmp-path
-      cmp-cmdline
+      cmp-nvim-lsp      # cmp suggestions from Language Servers
+      cmp-buffer        # cmp suggestions from Buffers
+      cmp-path          # cmp suggestions from path
+      cmp-cmdline       # cmp suggestions from command line
+      cmp-treesitter    # cmp suggestions form tree-sitter
       nvim-cmp
+      lspkind-nvim
       neoformat
 
       # Syntax highlighting/language-specific
@@ -76,7 +85,7 @@ in
       vim-gitgutter
 
       # EyeCandies
-      onedark-vim
+      onedark-nvim
       nvim-web-devicons
       lualine-nvim
     ];

@@ -38,7 +38,6 @@ let
     brittany                          # code formatter
     cabal-install                     # cabal
     ghc                               # compiler
-    haskell-language-server           # hls
     cabal2nix                         # converts .cabal > .nix
   ];
 

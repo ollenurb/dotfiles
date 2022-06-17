@@ -11,6 +11,8 @@ let
   browser = "${pkgs.firefox}/bin/firefox";
   programLauncher = "${pkgs.rofi}/bin/rofi";
   volumeControl = "${pkgs.pavucontrol}/bin/pavucontrol";
+  terminal = "${pkgs.alacritty}/bin/alacritty";
+  feh = "${pkgs.feh}/bin/feh";
 in
 {
   xsession = {
@@ -21,31 +23,44 @@ in
     };
   };
 
-  # Write actual configuration for i3
+  # This will define the actual i3 configuration file
   xsession.windowManager.i3.config = {
     modifier = "Mod4";
     floating.modifier = modifier;
-    terminal = "alacritty";
     bars = [];
     fonts = {
       names = ["Hack Nerd Font"];
       size = 13.0;
     };
-    menu = "${programLauncher} -modi drun,run,ssh,window -show";
+
+    defaultWorkspace = "workspace number 1";
 
     # Enable floating window for specific programs
     window.commands = [ { command = "floating enable"; criteria = { instance = "pavucontrol"; };} ];
 
+    # Restart polybar service on startup
+    startup = [
+      { command = "systemctl --user restart polybar"; always = true; notification = false; }
+      { command = "$HOME/.fehbg"; always = false; notification = false; }
+    ];
+
     gaps.inner = 12;
-    gaps.smartGaps = true;
 
     keybindings = lib.mkOptionDefault {
-      # Power Menu, Browser, Volume Controller
+      # Power Menu and program Launcher
       "${modifier}+Shift+0" = execCommand {
         cmd = programLauncher;
         params = "-show power-menu -modi power-menu:rofi-power-menu";
       };
+
+      "${modifier}+d" = execCommand {
+        cmd = programLauncher;
+        params = "-modi drun,run,ssh,window -show";
+      };
+
+      # Other programs
       "${modifier}+Shift+f" = execCommand { cmd = browser; };
+      "${modifier}+Return" = execCommand { cmd = terminal; };
       "${modifier}+Ctrl+m" = execCommand { cmd = volumeControl; params = "&"; };
 
       # Change focus using vim-like bindings

@@ -1,4 +1,5 @@
 [
+  ./i3
   ./alacritty
   ./polybar
   ./neovim
@@ -7,5 +8,4 @@
   ./dunst
   ./lf
   ./redshift
-  ./i3
 ]

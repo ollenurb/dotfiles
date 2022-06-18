@@ -45,6 +45,7 @@ in
     ];
 
     gaps.inner = 12;
+    gaps.smartBorders = "on";
 
     keybindings = lib.mkOptionDefault {
       # Power Menu and program Launcher

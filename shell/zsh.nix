@@ -3,6 +3,7 @@
 {
   programs.zsh = {
     enable = true;
+    enableAutosuggestions = true;
     # Setup custom aliases
     shellAliases = {
       apply-system = "$HOME/.dotfiles/apply-system.sh";

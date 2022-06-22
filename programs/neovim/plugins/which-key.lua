@@ -22,6 +22,32 @@ wk.register({
             f = { "<cmd>NvimTreeFindFile<cr>", "Find File in Tree" },
         },
 
+        t = {
+            name = "Terminal",
+            f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+            h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+            v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+        },
+
+        l = {
+            name = "LSP",
+            a = { vim.lsp.buf.code_action, "Code Action" },
+            d = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Buffer Diagnostics" },
+            w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+            i = { "<cmd>LspInfo<cr>", "Info" },
+            s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+            S = {
+              "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+              "Workspace Symbols",
+            },
+            e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
+            f = { vim.lsp.buf.formatting, "Format" },
+            j = { vim.diagnostic.goto_next, "Next Diagnostic" },
+            k = { vim.diagnostic.goto_prev, "Prev Diagnostic" },
+            l = { vim.lsp.codelens.run, "CodeLens Action" },
+            q = { vim.diagnostic.setloclist, "Quickfix" },
+            r = { vim.lsp.buf.rename, "Rename" },
+        },
     },
 
     -- Navigate Buffers Easily

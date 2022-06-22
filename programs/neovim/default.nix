@@ -18,6 +18,7 @@ let
   languageServers = with pkgs; [
     metals                    # Scala
     haskell-language-server   # Haskell
+    rust-analyzer             # Rust
   ];
 
 in
@@ -39,6 +40,7 @@ in
         ${lib.strings.fileContents ./plugins/nvim-tree.lua}
         ${lib.strings.fileContents ./plugins/treesitter.lua}
         ${lib.strings.fileContents ./plugins/which-key.lua}
+        ${lib.strings.fileContents ./plugins/toggleterm.lua}
         EOF
       ''
     ];

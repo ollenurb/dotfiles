@@ -54,42 +54,37 @@ in
 
     # Fetch plugins from pkgs or git using the (plugin) function
     plugins = with pkgs.vimPlugins; [
-      # Language Server Protocol - Related
-      nvim-lspconfig
-      cmp-nvim-lsp      # cmp suggestions from Language Servers
-      cmp-buffer        # cmp suggestions from Buffers
-      cmp-path          # cmp suggestions from path
-      cmp-cmdline       # cmp suggestions from command line
-      cmp-treesitter    # cmp suggestions form tree-sitter
-      nvim-cmp
-      lspkind-nvim
-      neoformat
+      # Language Server Protocol
+      nvim-lspconfig          # Every LSP default config
+      cmp-nvim-lsp            # cmp suggestions from Language Servers
+      cmp-buffer              # cmp suggestions from Buffers
+      cmp-path                # cmp suggestions from path
+      cmp-cmdline             # cmp suggestions from command line
+      cmp-treesitter          # cmp suggestions form tree-sitter
+      nvim-cmp                # Autosuggestions
+      lspkind-nvim            # Better kinds (show type on autosuggestions)
+      rust-tools-nvim         # Better Rust LSP defaults
 
       # Syntax highlighting/language-specific
-      nvim-ts-rainbow
-      nvim-treesitter
-      vim-nix
-      vim-markdown
-      nvim-tree-lua
-
-      # Fuzzy Finder
-      telescope-nvim
+      nvim-ts-rainbow         # Colored parentheses
+      nvim-treesitter         # Better Syntax Highlighting
+      nvim-tree-lua           # File Tree
 
       # Misc
-      which-key-nvim
-      delimitMate # auto bracket
-      vim-commentary
-      vim-fugitive
-      tabular
-      vimwiki
-      vim-better-whitespace
-      toggleterm-nvim
-      vim-gitgutter
+      impatient-nvim          # Improves startup time
+      which-key-nvim          # Keymaps and suggestions about them
+      delimitMate             # Auto closing brackets
+      vim-commentary          # Comment with `gc_`
+      tabular                 # Tabularize stuff  # TODO: Keymaps should be created
+      vim-better-whitespace   # Shows Whitespaces
+      toggleterm-nvim         # Toggle Terminal
+      vim-gitgutter           # Git Diffs in the sign column
+      telescope-nvim
 
       # EyeCandies
-      onedark-nvim
-      nvim-web-devicons
-      lualine-nvim
+      onedark-nvim            # Onedark colorscheme
+      nvim-web-devicons       # Icons
+      lualine-nvim            # Better Status Line
     ];
   };
 }

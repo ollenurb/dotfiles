@@ -1,6 +1,9 @@
 local o = vim.opt
 local g = vim.g
 
+-- Load impatient.nvim to cache plugins and improve startup time
+require('impatient')
+
 -- General configuration
 require('onedark').load()
 

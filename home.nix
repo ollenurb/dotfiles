@@ -17,6 +17,7 @@ let
     element-desktop                   # Matrix.org client
     calibre                           # Ebook Library
     weechat                           # IRC Client
+    neovide                           # Neovim GUI
   ];
 
   utilities = with pkgs; [

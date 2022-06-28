@@ -7,7 +7,7 @@ wk.register({
 
     ["<Leader>"] = {
         f = {
-            name = "find",
+            name = "Find",
             f = { "<cmd>Telescope find_files<cr>", "Find File" },
             g = { "<cmd>Telescope live_grep<cr>", "Live Grep" },
             b = { "<cmd>Telescope buffers<cr>", "Find Buffers" },
@@ -16,7 +16,7 @@ wk.register({
         },
 
         e = {
-            name = "file explorer",
+            name = "File Explorer",
             n = { "<cmd>NvimTreeToggle<cr>", "Toggle File Tree" },
             r = { "<cmd>NvimTreeRefresh<cr>", "Refresh File Tree" },
             f = { "<cmd>NvimTreeFindFile<cr>", "Find File in Tree" },
@@ -31,22 +31,24 @@ wk.register({
 
         l = {
             name = "LSP",
-            a = { vim.lsp.buf.code_action, "Code Action" },
+            e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
             d = { "<cmd>Telescope diagnostics bufnr=0<cr>", "Buffer Diagnostics" },
             w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
-            i = { "<cmd>LspInfo<cr>", "Info" },
             s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
             S = {
               "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
               "Workspace Symbols",
             },
-            e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
+            g = { vim.lsp.buf.definition, "Go to definition" },
+            i = { "<cmd>LspInfo<cr>", "Info" },
+            a = { vim.lsp.buf.code_action, "Code Action" },
             f = { vim.lsp.buf.formatting, "Format" },
+            h = { vim.lsp.buf.hover, "Trigger Hover on cursor" },
             j = { vim.diagnostic.goto_next, "Next Diagnostic" },
             k = { vim.diagnostic.goto_prev, "Prev Diagnostic" },
             l = { vim.lsp.codelens.run, "CodeLens Action" },
             q = { vim.diagnostic.setloclist, "Quickfix" },
-            r = { vim.lsp.buf.rename, "Rename" },
+            r = { vim.lsp.buf.rename, "Rename Reference" },
         },
     },
 

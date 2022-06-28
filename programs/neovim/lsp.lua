@@ -1,5 +1,6 @@
 local lspconfig = require 'lspconfig'
 local util = require 'lspconfig.util'
+local rust = require 'rust-tools'
 
 -- Haskell
 lspconfig.hls.setup {
@@ -8,24 +9,9 @@ lspconfig.hls.setup {
 
 -- Scala
 lspconfig.metals.setup {
-    root_dir = util.root_pattern('*.sc','*.scala', '*.sbt')
+    root_dir = util.root_pattern('*.sc','*.scala', '*.sbt'),
+    statusBarProvider = "show-message",
 }
 
 -- RUST
-lspconfig.rust_analyzer.setup({
-    on_attach=on_attach,
-    settings = {
-        ["rust-analyzer"] = {
-            assist = {
-                importGranularity = "module",
-                importPrefix = "self",
-            },
-            cargo = {
-                loadOutDirsFromCheck = true
-            },
-            procMacro = {
-                enable = true
-            },
-        }
-    }
-})
+rust.setup({})

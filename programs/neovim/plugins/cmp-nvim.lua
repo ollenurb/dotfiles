@@ -1,7 +1,14 @@
 local cmp = require('cmp')
 local lspkind = require('lspkind')
+local luasnip = require('luasnip')
 
 cmp.setup({
+    snippet = {
+      expand = function(args)
+        luasnip.lsp_expand(args.body)
+      end,
+    },
+
     mapping = {
       ['<C-p>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-n>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -27,6 +34,8 @@ cmp.setup({
 	        else
 	          cmp.confirm()
 	        end
+        elseif luasnip.expand_or_jumpable() then
+          luasnip.expand_or_jump()
         else
           fallback()
         end
@@ -53,8 +62,8 @@ cmp.setup({
 
     sources = cmp.config.sources({
       { name = 'nvim_lsp' },
-      { name = 'vsnip' },
       { name = 'treesitter'},
+      { name = 'luasnip' },
       }, {
       { name = 'buffer' },
     })

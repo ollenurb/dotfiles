@@ -8,6 +8,8 @@ let
     githubSupport = true;
     pulseSupport = true;
   };
+
+  white = "#FFFFFF";
 in
 {
   services.polybar = {
@@ -19,32 +21,46 @@ in
       "global/wm" = {
         margin-bottom = 0;
         margin-top = 0;
+
       };
 
       "bar/top" = {
+        enable-ipc = true;
         width = "100%";
         height = 30;
         top = true;
         /* I've put some transparency by appending its HEX alpha value */
         background = "${config.colors.background}";
-        foreground = "#FFFFFF";
+        foreground = white;
         font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
-        font-1 = "Hack Nerd Font:style=Mono:pixelsize=24:antialias=true;3";
+        font-1 = "Hack Nerd Font:style=Mono:pixelsize=18:antialias=true;3";
         font-2 = "Hack Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
         font-3 = unifont:fontformat=truetype:size=8:antialias=false;
-        modules-left = "separator i3";
-        modules-center = "date";
-        modules-right = "cpu separator filesystem separator pulseaudio separator";
+        modules-left = "i3 lseparator";
+        modules-center = "rseparator date lseparator";
+        modules-right = "rseparator cpu rseparator filesystem rseparator pulseaudio rseparator";
         tray-position = "right";
+        tray-foreground = white;
+        tray-padding = "2px";
         override-redirect = false;
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         line-size = 2;
+        module-margin = "6px";
       };
 
-      "module/separator" = {
+      "module/rseparator" = {
         type = "custom/text";
-        content = " ";
+        content = "";
+        content-font = 2;
+        content-foreground = "${config.colors.foreground}";
+      };
+
+      "module/lseparator" = {
+        type = "custom/text";
+        content = "";
+        content-font = 2;
+        content-foreground = "${config.colors.foreground}";
       };
 
       "module/i3" = {
@@ -88,12 +104,8 @@ in
       "module/pulseaudio" = {
         type = "internal/pulseaudio";
         format-volume = "<ramp-volume> <label-volume>";
-        format-volume-padding = 1;
-        # format-volume-foreground = "${config.colors.color0}";
-        # format-volume-background = "${config.colors.color12}";
         label-volume = "%percentage%%";
         label-muted = "婢 Muted";
-        # label-muted-background = "${colors.Cyan}";
         ramp.volume = ["奄" "奔" "墳"];
         click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
       };
@@ -103,14 +115,13 @@ in
         mount-0 = "/";
         fixed-values = false;
         format-mounted = " <label-mounted>";
-        label-mounted = "%used%/%total%";
+        label-mounted = "%used%";
       };
 
       "module/cpu" = {
         type = "internal/cpu";
         format = " <label>";
         label = "%percentage%%";
-        format-padding = 1;
       };
 
     };

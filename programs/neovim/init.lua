@@ -4,9 +4,15 @@ local g = vim.g
 -- Load impatient.nvim to cache plugins and improve startup time
 require('impatient')
 
--- General configuration
-require('onedark').load()
+-- Setup colorscheme
+require('onedark').setup({
+    function_style = "italic",
+    comment_style = "italic",
+    hide_inactive_statusline = true,
+    dark_sidebar = true,
+})
 
+-- General configuration
 o.swapfile = false
 o.showmode = false
 o.ignorecase = true

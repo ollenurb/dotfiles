@@ -2,10 +2,10 @@
 let
   # taken from https://breuer.dev/blog/nixos-home-manager-neovim
   # installs a vim plugin from git with a given tag / branch
-  pluginGit = ref: repo: pkgs.vimutils.buildvimpluginfrom2nix {
-    pname = "${lib.strings.sanitizederivationname repo}";
+  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
+    pname = "${lib.strings.sanitizeDerivationName repo}";
     version = ref;
-    src = builtins.fetchgit {
+    src = builtins.fetchGit {
       url = "https://github.com/${repo}.git";
       ref = ref;
     };
@@ -64,10 +64,10 @@ in
       cmp-treesitter              # cmp suggestions form tree-sitter
       nvim-cmp                    # Autosuggestions
       lspkind-nvim                # Better kinds (show type on autosuggestions)
-      rust-tools-nvim             # Better Rust LSP defaults
+      rust-tools-nvim             # Better Rust LSP default config
+      trouble-nvim                # Better LSP code actions
 
       # Syntax highlighting/language-specific
-      nvim-ts-rainbow             # Colored parentheses
       nvim-treesitter             # Better Syntax Highlighting
       nvim-tree-lua               # File Tree
 
@@ -87,9 +87,10 @@ in
 
 
       # EyeCandies
-      onedark-nvim                # Onedark colorscheme
-      nvim-web-devicons           # Icons
-      lualine-nvim                # Better Status Line
+      nvim-web-devicons              # Icons
+      lualine-nvim                   # Better Status Bar
+      lualine-lsp-progress           # Show loading progress inside statusbar
+      (plugin "ful1e5/onedark.nvim") # Colorscheme
     ];
   };
 }

@@ -16,7 +16,6 @@ let
     zathura                           # .pdf viewer
     element-desktop                   # Matrix.org client
     calibre                           # Ebook Library
-    weechat                           # IRC Client
     neovide                           # Neovim GUI
   ];
 

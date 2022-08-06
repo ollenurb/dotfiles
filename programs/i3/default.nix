@@ -40,6 +40,7 @@ in
 
     # Restart polybar service on startup
     startup = [
+      { command = "${browser} calendar.google.com"; always = false; notification = false; }
       { command = "systemctl --user restart polybar"; always = true; notification = false; }
       { command = "$HOME/.fehbg"; always = false; notification = false; }
     ];

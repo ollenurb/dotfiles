@@ -61,7 +61,11 @@ in
   networking.hostName = "pluto";
 
   # Setup network manager and nm-applet
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    enable = true;
+    wifi.scanRandMacAddress = false;
+  };
+
   programs.nm-applet.enable = true;
 
   # Set your time zone.
@@ -107,6 +111,9 @@ in
     extraGroups = ["wheel" "adbusers"]; # Enable ‘sudo’ and `adb` for the user.
     shell = pkgs.zsh;
   };
+
+  security.sudo.enable = true;
+  security.sudo.wheelNeedsPassword = false;
 
   # Nix daemon config
   nix = {

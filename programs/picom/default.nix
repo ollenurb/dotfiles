@@ -20,7 +20,7 @@
       "85:class_g = 'URxvt'"
       "85:name = 'Alacritty' && focused"
       "85:class_g = 'Alacritty' && !focused"
-      "85:class_g = 'Polybar'"
+      /* "40:class_g = 'Polybar'" */
     ];
   };
 }

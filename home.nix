@@ -17,6 +17,7 @@ let
     element-desktop                   # Matrix.org client
     calibre                           # Ebook Library
     neovide                           # Neovim GUI
+    vscodium                          # VSCode
   ];
 
   utilities = with pkgs; [

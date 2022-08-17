@@ -108,7 +108,7 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.matteo = {
     isNormalUser = true;
-    extraGroups = ["wheel" "adbusers"]; # Enable ‘sudo’ and `adb` for the user.
+    extraGroups = ["wheel" "adbusers" "libvirtd"]; # Enable ‘sudo’ and `adb` for the user.
     shell = pkgs.zsh;
   };
 
@@ -161,6 +161,8 @@ in
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
     };
+
+    libvirtd.enable = true;
   };
 
   # Enable the Avahi daemon (Essentially used to stream the iPad screen)

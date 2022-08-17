@@ -15,13 +15,11 @@ in
   services.polybar = {
     enable = true;
     package = myPolybar;
-    # config = ./config.ini;
     script = "polybar top &";
     settings = {
       "global/wm" = {
         margin-bottom = 0;
         margin-top = 0;
-
       };
 
       "bar/top" = {
@@ -29,7 +27,6 @@ in
         width = "100%";
         height = 30;
         top = true;
-        /* I've put some transparency by appending its HEX alpha value */
         background = "${config.colors.background}";
         foreground = white;
         font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";

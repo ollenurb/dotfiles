@@ -1,6 +1,6 @@
 # Personal Wiki
 
-Here I save some useful informations regarding general maintainability and usage
+Here are some useful informations regarding general maintainability and usage
 of the system.
 
 

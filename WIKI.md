@@ -17,8 +17,7 @@ Update home-manager to a major channel release:
 1. `nix-channel --remove home-manager`
 2. `nix-channel --add <NEW_HOME_MANAGER_CHANNEL_URL> home-manager`
 3. `nix-channel --update`
-4. `home-manager switch`
-5. `apply-home`
+4. `apply-home`
 
 Update the system/home to a channel update:
 

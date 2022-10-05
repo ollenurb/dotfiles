@@ -17,7 +17,7 @@ let
   # Language Servers to be installed
   languageServers = with pkgs; [
     metals                    # Scala
-    haskell-language-server   # Haskell
+    /* haskell-language-server   # Haskell */
     rust-analyzer             # Rust
   ];
 
@@ -49,6 +49,7 @@ in
     # Some packages required to run plugins
     extraPackages = with pkgs; [
       tree-sitter
+      xclip
       gcc
       nodejs
     ] ++ languageServers;
@@ -81,7 +82,7 @@ in
       toggleterm-nvim             # Toggle Terminal
       vim-gitgutter               # Git Diffs in the sign column
       telescope-nvim              # Telescope
-      telescope-ui-select-nvim
+      telescope-ui-select-nvim    # Telescope extension
       luasnip                     # Snippet Engine
       cmp_luasnip                 # Snippet engine integration with cmp-nvim
 

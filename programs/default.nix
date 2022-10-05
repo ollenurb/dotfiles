@@ -6,6 +6,5 @@
   ./rofi
   ./picom
   ./dunst
-  ./lf
   ./redshift
 ]

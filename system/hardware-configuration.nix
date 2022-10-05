@@ -23,9 +23,15 @@
       fsType = "vfat";
     };
 
+  fileSystems."/home/matteo/Storage" =
+    { device = "/dev/disk/by-uuid/f751d84e-88e1-4a55-bbf8-c4643087e48b";
+      fsType = "ext4";
+    };
+
   swapDevices =
     [ { device = "/dev/disk/by-uuid/4096caab-556c-47bc-a30d-6f14abfa096e"; }
     ];
+
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display

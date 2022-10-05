@@ -14,6 +14,7 @@ let
     anki-bin                          # Flashcards
     jetbrains.idea-ultimate           # IntelliJ
     zathura                           # .pdf viewer
+    vifm                              # FIle manager
     element-desktop                   # Matrix.org client
     calibre                           # Ebook Library
     neovide                           # Neovim GUI
@@ -35,7 +36,13 @@ let
     texlive.combined.scheme-full      # LaTeX
   ];
 
-  haskellPkgs = with pkgs.haskellPackages; [
+  rustToolchain = with pkgs; [
+    cargo                             # cargo
+    rustc                             # compiler
+    rustfmt                           # formatter
+  ];
+
+  haskellToolchain = with pkgs.haskellPackages; [
     brittany                          # code formatter
     cabal-install                     # cabal
     ghc                               # compiler
@@ -48,7 +55,7 @@ in {
   home = {
     username = "matteo";
     homeDirectory = "/home/matteo";
-    packages = programs ++ utilities ++ haskellPkgs;
+    packages = programs ++ utilities ++ haskellToolchain ++ rustToolchain;
     sessionVariables = {
       EDITOR = "nvim";
     };

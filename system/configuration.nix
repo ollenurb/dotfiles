@@ -39,6 +39,9 @@ in
     };
   };
 
+  # Enable secret storing service
+  services.gnome.gnome-keyring.enable = true;
+
   nixpkgs.config.allowUnfree = true;
   # Enable opengl
   hardware.opengl.enable = true;
@@ -51,7 +54,6 @@ in
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
-      useOSProber = true;
       # splashImage = ../theming/grub_bg.png;
     };
     efi.canTouchEfiVariables = true;
@@ -153,6 +155,9 @@ in
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
+  # Enable nested virtualization
+  boot.extraModprobeConfig = "options kvm_amd nested=1";
+
   # Enable Podman (an alternative docker engine)
   virtualisation = {
     podman = {
@@ -161,8 +166,6 @@ in
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
     };
-
-    libvirtd.enable = true;
   };
 
   # Enable the Avahi daemon (Essentially used to stream the iPad screen)

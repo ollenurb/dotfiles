@@ -2,7 +2,7 @@ require("telescope").setup {
     extensions = {
         ["ui-select"] = {
             require("telescope.themes").get_dropdown { }
-        }
+        },
   }
 }
 -- To get ui-select loaded and working with telescope, you need to call

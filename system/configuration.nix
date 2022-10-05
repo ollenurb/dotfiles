@@ -23,7 +23,7 @@ in
       enable = true;
       layout = "us";
       autorun = true;
-      videoDrivers = ["nvidia"];
+      /* videoDrivers = ["nvidia"]; */
       # Display Manager configurations
       displayManager = {
         defaultSession = "none+i3";
@@ -153,7 +153,7 @@ in
   services.acpid.enable = true;
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  /* # services.openssh.enable = true; */
 
   # Enable nested virtualization
   boot.extraModprobeConfig = "options kvm_amd nested=1";

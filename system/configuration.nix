@@ -22,7 +22,7 @@ in
     xserver = {
       enable = true;
       layout = "us";
-      autorun = true;
+      /* autorun = true; */
       /* videoDrivers = ["nvidia"]; */
       # Display Manager configurations
       displayManager = {

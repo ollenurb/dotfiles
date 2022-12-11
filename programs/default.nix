@@ -7,4 +7,5 @@
   ./picom
   ./dunst
   ./redshift
+  /* ./newsboat */
 ]

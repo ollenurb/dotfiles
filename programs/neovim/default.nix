@@ -1,22 +1,8 @@
 { pkgs, lib, ... }:
 let
-  # taken from https://breuer.dev/blog/nixos-home-manager-neovim
-  # installs a vim plugin from git with a given tag / branch
-  pluginGit = ref: repo: pkgs.vimUtils.buildVimPluginFrom2Nix {
-    pname = "${lib.strings.sanitizeDerivationName repo}";
-    version = ref;
-    src = builtins.fetchGit {
-      url = "https://github.com/${repo}.git";
-      ref = ref;
-    };
-  };
-
-  # always installs latest version
-  plugin = pluginGit "HEAD";
-
   # Language Servers to be installed
   languageServers = with pkgs; [
-    metals                    # Scala
+    /* metals                    # Scala */
     /* haskell-language-server   # Haskell */
     rust-analyzer             # Rust
   ];
@@ -38,7 +24,6 @@ in
         ${lib.strings.fileContents ./plugins/lualine.lua}
         ${lib.strings.fileContents ./plugins/cmp-nvim.lua}
         ${lib.strings.fileContents ./plugins/nvim-tree.lua}
-        ${lib.strings.fileContents ./plugins/treesitter.lua}
         ${lib.strings.fileContents ./plugins/which-key.lua}
         ${lib.strings.fileContents ./plugins/toggleterm.lua}
         ${lib.strings.fileContents ./plugins/telescope.lua}
@@ -69,7 +54,23 @@ in
       trouble-nvim                # Better LSP code actions
 
       # Syntax highlighting/language-specific
-      nvim-treesitter             # Better Syntax Highlighting
+      {
+            plugin = nvim-treesitter.withPlugins (plugins: with plugins; [
+              tree-sitter-python
+              tree-sitter-cpp
+              tree-sitter-c
+              tree-sitter-haskell
+              tree-sitter-rust
+              tree-sitter-latex
+              tree-sitter-markdown
+              tree-sitter-json
+              tree-sitter-json5
+              tree-sitter-lua
+              tree-sitter-nix
+          ]);
+          config = "lua require('nvim-treesitter')";
+      }
+
       nvim-tree-lua               # File Tree
 
       # Misc
@@ -91,7 +92,8 @@ in
       nvim-web-devicons              # Icons
       lualine-nvim                   # Better Status Bar
       lualine-lsp-progress           # Show loading progress inside statusbar
-      (plugin "ful1e5/onedark.nvim") # Colorscheme
+      onedarkpro-nvim
+      /* (plugin "ful1e5/onedark.nvim") # Colorscheme */
     ];
   };
 }

@@ -5,12 +5,13 @@ local g = vim.g
 require('impatient')
 
 -- Setup colorscheme
-require('onedark').setup({
-    function_style = "italic",
-    comment_style = "italic",
-    hide_inactive_statusline = true,
-    dark_sidebar = true,
-})
+-- require('onedark').setup({
+--     function_style = "italic",
+--     comment_style = "italic",
+--     hide_inactive_statusline = true,
+--     dark_sidebar = true,
+-- })
+vim.cmd("colorscheme onedarkpro")
 
 -- General configuration
 o.swapfile = false

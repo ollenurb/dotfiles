@@ -4,22 +4,22 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
-    ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+  ];
 
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/c7b0af40-f3dc-4a23-8d53-cf0aa34bc6df";
+    { device = "/dev/disk/by-uuid/58aae2b9-1601-4336-9839-c5d3ff0cf261";
       fsType = "ext4";
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/2888-5F7E";
+    { device = "/dev/disk/by-uuid/37B4-2A3C";
       fsType = "vfat";
     };
 
@@ -29,11 +29,18 @@
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/4096caab-556c-47bc-a30d-6f14abfa096e"; }
+    [ { device = "/dev/disk/by-uuid/ca89c48a-b38d-4c9c-b688-ea4c36515093"; }
     ];
 
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp4s0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp8s0.useDHCP = lib.mkDefault true;
 
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   # high-resolution display
-  /* hardware.video.hidpi.enable = lib.mkDefault true; */
+  hardware.video.hidpi.enable = lib.mkDefault true;
 }

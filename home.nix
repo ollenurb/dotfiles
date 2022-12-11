@@ -5,7 +5,6 @@ let
     nix-doc                           # nix documentation search tool
     pavucontrol                       # pulseaudio control
     firefox                           # browser
-    spotify                           # Music player
     feh                               # Image viewer
     tdesktop                          # Telegram
     mpv                               # Video Player
@@ -34,6 +33,7 @@ let
     libnotify                         # notify-send command
     gnumake                           # Make utility
     texlive.combined.scheme-full      # LaTeX
+    jdk11                             # Java JDK
   ];
 
   rustToolchain = with pkgs; [
@@ -55,6 +55,7 @@ in {
   home = {
     username = "matteo";
     homeDirectory = "/home/matteo";
+    stateVersion = "22.11";
     packages = programs ++ utilities ++ haskellToolchain ++ rustToolchain;
     sessionVariables = {
       EDITOR = "nvim";

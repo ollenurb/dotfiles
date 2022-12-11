@@ -9,7 +9,12 @@ let
   };
 in
 {
-  imports = [ ./hardware-configuration.nix ];
+
+  environment.variables.XCURSOR_SIZE = "32";
+
+  imports = [
+      ./hardware-configuration.nix
+  ];
 
   # Enabling dconf allow the use of gsettings
   programs.dconf.enable = true;
@@ -23,7 +28,7 @@ in
       enable = true;
       layout = "us";
       /* autorun = true; */
-      /* videoDrivers = ["nvidia"]; */
+      videoDrivers = ["nvidia"];
       # Display Manager configurations
       displayManager = {
         defaultSession = "none+i3";
@@ -39,12 +44,15 @@ in
     };
   };
 
+  # Setup nvidia driver
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+
   # Enable secret storing service
   services.gnome.gnome-keyring.enable = true;
 
   nixpkgs.config.allowUnfree = true;
   # Enable opengl
-  hardware.opengl.enable = true;
+  /* hardware.opengl.enable = true; */
   # Enable ADB
   programs.adb.enable = true;
 
@@ -78,7 +86,7 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp4s0.useDHCP = false;
-  networking.interfaces.wlp8s0.useDHCP = true;
+  networking.interfaces.wlp8s0.useDHCP = false;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
@@ -122,7 +130,7 @@ in
     package = pkgs.nixFlakes;
 
     # Automate `nix-store --optimise`
-    autoOptimiseStore = true;
+    auto-optimise-store = true;
 
     # Automate garbage collection
     gc = {
@@ -139,7 +147,7 @@ in
     '';
 
     # Required by Cachix to be used as non-root user
-    trustedUsers = [ "root" "matteo" ];
+    trusted-users = [ "root" "matteo" ];
   };
 
   # List packages installed in system profile. To search, run:
@@ -156,7 +164,7 @@ in
   /* # services.openssh.enable = true; */
 
   # Enable nested virtualization
-  boot.extraModprobeConfig = "options kvm_amd nested=1";
+  /* boot.extraModprobeConfig = "options kvm_amd nested=1"; */
 
   # Enable Podman (an alternative docker engine)
   virtualisation = {

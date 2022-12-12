@@ -1,4 +1,5 @@
 #!/bin/sh
 pushd ~/.dotfiles
-home-manager switch -f ./home.nix
+nix build .#homeConfigurations.pluto.activationPackage
+./result/activate
 popd

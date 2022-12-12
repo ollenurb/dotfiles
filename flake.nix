@@ -16,13 +16,13 @@
             };
             lib = nixpkgs.lib;
         in {
-            systemConfig = {
+            nixosConfigurations = {
                 pluto = lib.nixosSystem {
                     inherit system;
                     modules = [ ./system/configuration.nix ];
                 };
             };
-            homeConfig = {
+            homeConfigurations = {
                 pluto = home-manager.lib.homeManagerConfiguration {
                     inherit pkgs;
                     modules = [ ./home.nix ];

@@ -78,8 +78,6 @@ in
       which-key-nvim              # Keymaps and suggestions about them
       delimitMate                 # Auto closing brackets
       vim-commentary              # Comment with `gc_`
-      tabular                     # Tabularize stuff  # TODO: Keymaps should be created
-      vim-better-whitespace       # Shows Whitespaces
       toggleterm-nvim             # Toggle Terminal
       vim-gitgutter               # Git Diffs in the sign column
       telescope-nvim              # Telescope
@@ -87,13 +85,12 @@ in
       luasnip                     # Snippet Engine
       cmp_luasnip                 # Snippet engine integration with cmp-nvim
 
-
       # EyeCandies
-      nvim-web-devicons              # Icons
-      lualine-nvim                   # Better Status Bar
-      lualine-lsp-progress           # Show loading progress inside statusbar
+      indent-blankline-nvim       # Indentation guides
+      nvim-web-devicons           # Icons
+      lualine-nvim                # Better Status Bar
+      lualine-lsp-progress        # Show loading progress inside statusbar
       onedarkpro-nvim
-      /* (plugin "ful1e5/onedark.nvim") # Colorscheme */
     ];
   };
 }

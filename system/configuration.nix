@@ -130,7 +130,7 @@ in
     package = pkgs.nixFlakes;
 
     # Automate `nix-store --optimise`
-    auto-optimise-store = true;
+    optimise.automatic = true;
 
     # Automate garbage collection
     gc = {
@@ -147,7 +147,7 @@ in
     '';
 
     # Required by Cachix to be used as non-root user
-    trusted-users = [ "root" "matteo" ];
+    # trusted-users = [ "root" "matteo" ];
   };
 
   # List packages installed in system profile. To search, run:

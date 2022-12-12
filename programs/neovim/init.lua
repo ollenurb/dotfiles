@@ -5,12 +5,6 @@ local g = vim.g
 require('impatient')
 
 -- Setup colorscheme
--- require('onedark').setup({
---     function_style = "italic",
---     comment_style = "italic",
---     hide_inactive_statusline = true,
---     dark_sidebar = true,
--- })
 vim.cmd("colorscheme onedarkpro")
 
 -- General configuration
@@ -24,6 +18,8 @@ o.backup = false
 o.smartcase = true
 o.mouse = 'a'
 o.encoding = "utf-8"
+o.relativenumber = true
+o.cursorline = true
 
 -- Time to wait for a key to be pressed (in ms)
 o.timeoutlen = 500
@@ -43,6 +39,3 @@ vim.api.nvim_create_autocmd({"BufNewFile", "BufRead"}, {
     pattern = {"*.md", "*.txt"},
     callback = function() o.textwidth = 80 end,
 })
-
--- Plugins Options
-g.better_whitespace_enabled = true

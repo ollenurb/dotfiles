@@ -5,6 +5,8 @@ of the system.
 
 
 ## Update System
+
+### Channel-Based Update
 Update the system to a major channel release:
 
 1. `sudo nix-channel --remove nixos`
@@ -23,6 +25,13 @@ Update the system/home to a channel update:
 
 1. `sudo nix-channel --update` (for home-manager `nix-channel --update`)
 2. `apply-system` (for home-manager `apply-home`)
+
+### Flake-Based Update
+
+Update the `flake.lock` dependencies
+
+1. `nix flake update`
+2. `apply-system` or/and `apply-home`
 
 ## Stream the iPad screen
 To mirror the iPad screen, you need to use the UxPlay server:

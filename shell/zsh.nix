@@ -15,9 +15,6 @@
       grep = "${pkgs.ripgrep}/bin/rg";
       todo = "${pkgs.neovim}/bin/nvim $ZETTELKASTEN_HOME/organizer/TodoList.md";
       fcd = "cd ''$(${pkgs.fd}/bin/fd --type d | ${pkgs.fzf}/bin/fzf)";
-      w0h = ''
-       find . -iname "*.md" -type f -exec sh -c 'pandoc "''${0}" --mathjax -d wiki.yaml -o "''${0%.md}.html" ' {} \;
-      '';
     };
 
     # Setup custom prompt

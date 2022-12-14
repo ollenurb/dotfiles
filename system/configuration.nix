@@ -27,8 +27,12 @@ in
     xserver = {
       enable = true;
       layout = "us";
-      /* autorun = true; */
+      autorun = true;
       videoDrivers = ["nvidia"];
+      screenSection = ''
+        Option         "metamodes" "3440x1440_100 +0+0"
+      '';
+
       # Display Manager configurations
       displayManager = {
         defaultSession = "none+i3";

@@ -2,8 +2,8 @@
 let
   # Language Servers to be installed
   languageServers = with pkgs; [
-    /* metals                    # Scala */
-    /* haskell-language-server   # Haskell */
+    metals                    # Scala
+    haskell-language-server   # Haskell
     rust-analyzer             # Rust
   ];
 
@@ -32,12 +32,7 @@ in
     ];
 
     # Some packages required to run plugins
-    extraPackages = with pkgs; [
-      tree-sitter
-      xclip
-      gcc
-      nodejs
-    ] ++ languageServers;
+    extraPackages = languageServers;
 
     # Fetch plugins from pkgs or git using the (plugin) function
     plugins = with pkgs.vimPlugins; [

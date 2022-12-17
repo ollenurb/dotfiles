@@ -5,7 +5,7 @@ local g = vim.g
 require('impatient')
 
 -- Setup colorscheme
-vim.cmd("colorscheme onedarkpro")
+vim.cmd("colorscheme onedark")
 
 -- General configuration
 o.swapfile = false

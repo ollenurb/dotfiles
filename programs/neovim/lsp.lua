@@ -26,3 +26,6 @@ lspconfig.metals.setup {
 
 -- Rust
 rust.setup({})
+
+-- Rust
+lspconfig.clangd.setup({})

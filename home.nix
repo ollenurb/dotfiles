@@ -12,6 +12,7 @@ let
     obsidian                          # Digital brain
     anki-bin                          # Flashcards
     jetbrains.idea-ultimate           # IntelliJ
+    jetbrains.clion                   # CLion
     zathura                           # .pdf viewer
     vifm                              # FIle manager
     element-desktop                   # Matrix.org client
@@ -31,7 +32,6 @@ let
     fzf                               # fuzzy finder
     exa                               # a better ls
     libnotify                         # notify-send command
-    gnumake                           # Make utility
     texlive.combined.scheme-full      # LaTeX
     jdk11                             # Java JDK
   ];

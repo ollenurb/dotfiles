@@ -21,6 +21,7 @@ in
         lua << EOF
         ${lib.strings.fileContents ./init.lua}
         ${lib.strings.fileContents ./lsp.lua}
+        ${lib.strings.fileContents ./plugins/shade.lua}
         ${lib.strings.fileContents ./plugins/lualine.lua}
         ${lib.strings.fileContents ./plugins/cmp-nvim.lua}
         ${lib.strings.fileContents ./plugins/nvim-tree.lua}
@@ -81,6 +82,7 @@ in
       cmp_luasnip                 # Snippet engine integration with cmp-nvim
 
       # EyeCandies
+      Shade-nvim                  # Dim inactive windows
       indent-blankline-nvim       # Indentation guides
       nvim-web-devicons           # Icons
       lualine-nvim                # Better Status Bar

@@ -164,11 +164,14 @@ in
   # List services that you want to enable:
   services.acpid.enable = true;
 
+  # Enable this only when you need to use calibre
+  services.udisks2.enable = true;
+
   # Enable the OpenSSH daemon.
-  /* # services.openssh.enable = true; */
+  # services.openssh.enable = true;
 
   # Enable nested virtualization
-  /* boot.extraModprobeConfig = "options kvm_amd nested=1"; */
+  # boot.extraModprobeConfig = "options kvm_amd nested=1";
 
   # Enable Podman (an alternative docker engine)
   virtualisation = {

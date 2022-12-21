@@ -37,17 +37,20 @@ in
 
     # Fetch plugins from pkgs or git using the (plugin) function
     plugins = with pkgs.vimPlugins; [
-      # Language Server Protocol
+
+      # LSP - Autocompletion related
       nvim-lspconfig              # Every LSP default config
       cmp-nvim-lsp                # cmp suggestions from Language Servers
       cmp-buffer                  # cmp suggestions from Buffers
       cmp-path                    # cmp suggestions from path
       cmp-cmdline                 # cmp suggestions from command line
       cmp-treesitter              # cmp suggestions form tree-sitter
+      cmp_luasnip                 # Snippet engine integration with cmp-nvim
       nvim-cmp                    # Autosuggestions
+      luasnip                     # Snippet Engine
       lspkind-nvim                # Better kinds (show type on autosuggestions)
       rust-tools-nvim             # Better Rust LSP default config
-      trouble-nvim                # Better LSP code actions
+      # trouble-nvim                # Better LSP code actions
 
       # Syntax highlighting/language-specific
       {
@@ -75,11 +78,8 @@ in
       delimitMate                 # Auto closing brackets
       vim-commentary              # Comment with `gc_`
       toggleterm-nvim             # Toggle Terminal
-      vim-gitgutter               # Git Diffs in the sign column
       telescope-nvim              # Telescope
       telescope-ui-select-nvim    # Telescope extension
-      luasnip                     # Snippet Engine
-      cmp_luasnip                 # Snippet engine integration with cmp-nvim
 
       # EyeCandies
       Shade-nvim                  # Dim inactive windows

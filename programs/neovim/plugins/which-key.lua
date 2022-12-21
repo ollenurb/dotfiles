@@ -32,8 +32,8 @@ wk.register({
         l = {
             name = "LSP",
             e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
-            d = { "<cmd>Trouble workspace_diagnostics<cr>", "Toggle Diagnostics" },
-            D = { "<cmd>Telescope diagnostics<cr>", "Telescope Diagnostics" },
+            -- d = { "<cmd>Trouble workspace_diagnostics<cr>", "Toggle Diagnostics" },
+            -- D = { "<cmd>Telescope diagnostics<cr>", "Telescope Diagnostics" },
             s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
             S = {
               "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",

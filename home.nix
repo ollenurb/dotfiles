@@ -12,7 +12,6 @@ let
     obsidian                          # Digital brain
     anki-bin                          # Flashcards
     jetbrains.idea-ultimate           # IntelliJ
-    jetbrains.clion                   # CLion
     zathura                           # .pdf viewer
     vifm                              # FIle manager
     element-desktop                   # Matrix.org client

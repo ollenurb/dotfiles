@@ -16,24 +16,21 @@ in
     viAlias     = true;
 
     # Configurations are stored in separate files
-    extraConfig = builtins.concatStringsSep "\n" [
-      ''
-        lua << EOF
-        ${lib.strings.fileContents ./init.lua}
-        ${lib.strings.fileContents ./lsp.lua}
-        ${lib.strings.fileContents ./plugins/shade.lua}
-        ${lib.strings.fileContents ./plugins/lualine.lua}
-        ${lib.strings.fileContents ./plugins/cmp-nvim.lua}
-        ${lib.strings.fileContents ./plugins/nvim-tree.lua}
-        ${lib.strings.fileContents ./plugins/which-key.lua}
-        ${lib.strings.fileContents ./plugins/toggleterm.lua}
-        ${lib.strings.fileContents ./plugins/telescope.lua}
-        EOF
-      ''
-    ];
+    extraConfig = ''
+      luafile ${builtins.toString ./init.lua}
+      luafile ${builtins.toString ./lsp.lua}
+      luafile ${builtins.toString ./lsp.lua}
+      luafile ${builtins.toString ./plugins/shade.lua}
+      luafile ${builtins.toString ./plugins/lualine.lua}
+      luafile ${builtins.toString ./plugins/cmp-nvim.lua}
+      luafile ${builtins.toString ./plugins/nvim-tree.lua}
+      luafile ${builtins.toString ./plugins/which-key.lua}
+      luafile ${builtins.toString ./plugins/toggleterm.lua}
+      luafile ${builtins.toString ./plugins/telescope.lua}
+    '';
 
     # Some packages required to run plugins
-    extraPackages = languageServers;
+    extraPackages = [ pkgs.xclip ] ++ languageServers;
 
     # Fetch plugins from pkgs or git using the (plugin) function
     plugins = with pkgs.vimPlugins; [
@@ -54,20 +51,20 @@ in
 
       # Syntax highlighting/language-specific
       {
-            plugin = nvim-treesitter.withPlugins (plugins: with plugins; [
-              tree-sitter-python
-              tree-sitter-cpp
-              tree-sitter-c
-              tree-sitter-haskell
-              tree-sitter-rust
-              tree-sitter-latex
-              tree-sitter-markdown
-              tree-sitter-json
-              tree-sitter-json5
-              tree-sitter-lua
-              tree-sitter-nix
+          plugin = nvim-treesitter.withPlugins (plugins: with plugins; [
+            tree-sitter-python
+            tree-sitter-cpp
+            tree-sitter-c
+            tree-sitter-haskell
+            tree-sitter-rust
+            tree-sitter-latex
+            tree-sitter-markdown
+            tree-sitter-json
+            tree-sitter-json5
+            tree-sitter-lua
+            tree-sitter-nix
           ]);
-          config = "lua require('nvim-treesitter')";
+          config = "luafile ${builtins.toString ./plugins/treesitter.lua}";
       }
 
       nvim-tree-lua               # File Tree

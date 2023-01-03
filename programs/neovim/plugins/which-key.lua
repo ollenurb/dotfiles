@@ -43,7 +43,7 @@ wk.register({
             q = { "<cmd>Trouble quickfix<cr>", "Quickfix" },
             i = { "<cmd>LspInfo<cr>", "Info" },
             a = { vim.lsp.buf.code_action, "Code Action" },
-            f = { vim.lsp.buf.formatting, "Format" },
+            f = { vim.lsp.buf.format { async = true }, "Format" },
             h = { vim.lsp.buf.hover, "Trigger Hover on cursor" },
             j = { vim.diagnostic.goto_next, "Next Diagnostic" },
             k = { vim.diagnostic.goto_prev, "Prev Diagnostic" },

@@ -14,6 +14,7 @@ in
 
   imports = [
       ./hardware-configuration.nix
+      ./syncthing.nix
   ];
 
   # Enabling dconf allow the use of gsettings
@@ -40,6 +41,7 @@ in
         autoLogin.user = "matteo";
         lightdm.greeter.enable = false;
       };
+
       # i3-configurations
       windowManager.i3 = {
         enable = true;
@@ -56,7 +58,7 @@ in
 
   nixpkgs.config.allowUnfree = true;
   # Enable opengl
-  /* hardware.opengl.enable = true; */
+  hardware.opengl.enable = true;
   # Enable ADB
   programs.adb.enable = true;
 
@@ -66,7 +68,6 @@ in
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
-      # splashImage = ../theming/grub_bg.png;
     };
     efi.canTouchEfiVariables = true;
   };
@@ -92,10 +93,6 @@ in
   networking.interfaces.enp4s0.useDHCP = false;
   networking.interfaces.wlp8s0.useDHCP = false;
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
@@ -115,9 +112,6 @@ in
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = ["Hack"]; })
   ];
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.matteo = {
@@ -166,12 +160,6 @@ in
 
   # Enable this only when you need to use calibre
   services.udisks2.enable = true;
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Enable nested virtualization
-  # boot.extraModprobeConfig = "options kvm_amd nested=1";
 
   # Enable Podman (an alternative docker engine)
   virtualisation = {

@@ -26,13 +26,14 @@ let
     ripgrep                           # faster grep
     htop                              # better top
     killall                           # kill all processes
+    bat                               # cat with syntax hightlight
     duf                               # disk usage/free utility
     fd                                # "find" for files
     fzf                               # fuzzy finder
     exa                               # a better ls
     libnotify                         # notify-send command
     texlive.combined.scheme-full      # LaTeX
-    jdk11                             # Java JDK
+    jdk                               # Java JDK
   ];
 
   rustToolchain = with pkgs; [

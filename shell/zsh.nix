@@ -15,6 +15,7 @@
       grep = "${pkgs.ripgrep}/bin/rg";
       todo = "${pkgs.neovim}/bin/nvim $ZETTELKASTEN_HOME/organizer/TodoList.md";
       fcd = "cd ''$(${pkgs.fd}/bin/fd --type d | ${pkgs.fzf}/bin/fzf)";
+      bat = "bat --theme=OneHalfDark";
     };
 
     # Setup custom prompt

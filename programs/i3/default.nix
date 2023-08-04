@@ -36,11 +36,12 @@ in
     defaultWorkspace = "workspace number 1";
 
     # Enable floating window for specific programs
-    window.commands = [ { command = "floating enable"; criteria = { instance = "pavucontrol"; };} ];
+    window.commands = [
+        { command = "floating enable"; criteria = { instance = "pavucontrol"; }; }
+    ];
 
     # Restart polybar service on startup
     startup = [
-      { command = "${browser} calendar.google.com"; always = false; notification = false; }
       { command = "systemctl --user restart polybar"; always = true; notification = false; }
       { command = "$HOME/.fehbg"; always = false; notification = false; }
     ];

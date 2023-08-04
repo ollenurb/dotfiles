@@ -5,7 +5,10 @@
     enable = true;
     settings = {
       global = {
-        geometry = "500x6-24+44";
+        width = 400;
+        height = 150;
+        origin = "top-right";
+        offset = "14x50";
         frame_width = 0;
         font = "Iosevka Nerd Font 12";
         word_wrap = true;

@@ -53,7 +53,17 @@ lspconfig.metals.setup {
 }
 
 -- Rust
-rust.setup({})
+rust.setup({
+    -- server = {
+    --     settings = {
+    --         ["rust-analyzer"] = {
+    --             checkOnSave = {
+    --                 command = "clippy",
+    --             },
+    --         },
+    --     },
+    -- },
+})
 
--- Rust
+-- C++
 lspconfig.clangd.setup({})

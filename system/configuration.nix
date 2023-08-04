@@ -14,7 +14,6 @@ in
 
   imports = [
       ./hardware-configuration.nix
-      ./syncthing.nix
   ];
 
   # Enabling dconf allow the use of gsettings
@@ -52,6 +51,7 @@ in
 
   # Setup nvidia driver
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  hardware.nvidia.modesetting.enable = true;
 
   # Enable secret storing service
   services.gnome.gnome-keyring.enable = true;
@@ -80,8 +80,6 @@ in
     enable = true;
     wifi.scanRandMacAddress = false;
   };
-
-  programs.nm-applet.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -112,14 +110,16 @@ in
   fonts.fonts = with pkgs; [
     (nerdfonts.override { fonts = ["Hack"]; })
   ];
+  /* fonts.fonts = customFonts; */
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.matteo = {
     isNormalUser = true;
-    extraGroups = ["wheel" "adbusers" "libvirtd"]; # Enable ‘sudo’ and `adb` for the user.
+    extraGroups = ["wheel" "adbusers"]; # Enable ‘sudo’ and `adb` for the user.
     shell = pkgs.zsh;
   };
 
+  programs.zsh.enable = true;
   security.sudo.enable = true;
   security.sudo.wheelNeedsPassword = false;
 
@@ -172,20 +172,20 @@ in
   };
 
   # Enable the Avahi daemon (Essentially used to stream the iPad screen)
-  # services.avahi = {
-  #   enable = true;
-  #   nssmdns = true;
-  #   publish = {
-  #     enable = true;
-  #     addresses = true;
-  #     workstation = true;
-  #     userServices = true;
-  #   };
-  # };
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
+    publish = {
+      enable = true;
+      addresses = true;
+      workstation = true;
+      userServices = true;
+    };
+  };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ 7000 7100 ];
-  # networking.firewall.allowedUDPPorts = [ 6000 6001 7011 ];
+  networking.firewall.allowedTCPPorts = [ 7000 7100 ];
+  networking.firewall.allowedUDPPorts = [ 6000 6001 7011 ];
   # Or disable the firewall altogether.
   networking.firewall.enable = false;
 

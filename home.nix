@@ -13,11 +13,13 @@ let
     anki-bin                          # Flashcards
     jetbrains.idea-ultimate           # IntelliJ
     zathura                           # .pdf viewer
-    vifm                              # FIle manager
+    vifm                              # File manager
     element-desktop                   # Matrix.org client
     calibre                           # Ebook Library
     neovide                           # Neovim GUI
     vscodium                          # VSCode
+    unzip                             # unzip
+    protege-distribution
   ];
 
   utilities = with pkgs; [
@@ -33,7 +35,10 @@ let
     exa                               # a better ls
     libnotify                         # notify-send command
     texlive.combined.scheme-full      # LaTeX
-    jdk                               # Java JDK
+    jdk17                             # Java JDK
+    unzip                             # Unzip stuff
+    flameshot                         # Screenshots
+    gcc                               # C/C++ Compiler
   ];
 
   rustToolchain = with pkgs; [
@@ -49,16 +54,23 @@ let
     cabal2nix                         # converts .cabal > .nix
   ];
 
+  juliaToolchain = with pkgs; [
+    julia
+  ];
+
 in {
-  imports = (import ./programs) ++ (import ./shell) ++ [(import ./theming/onedark.nix)];
+  imports = (import ./programs) ++ (import ./shell) ++ [(import ./theming/catppuccin.nix)];
 
   home = {
     username = "matteo";
     homeDirectory = "/home/matteo";
     stateVersion = "22.11";
-    packages = programs ++ utilities ++ haskellToolchain ++ rustToolchain;
+    packages = programs ++ utilities ++ juliaToolchain /* ++ haskellToolchain */ ++ rustToolchain;
     sessionVariables = {
       EDITOR = "nvim";
+      # Rust-related stuff
+      RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+      PKG_CONFIG_PATH ="${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
     };
   };
 
@@ -76,6 +88,8 @@ in {
   };
 
   programs = {
+    direnv.enable = true;
+    direnv.nix-direnv.enable = true;
     git = {
       enable = true;
       userName = "Ollenurb";

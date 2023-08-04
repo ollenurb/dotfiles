@@ -5,7 +5,8 @@ local g = vim.g
 require('impatient')
 
 -- Setup colorscheme
-vim.cmd("colorscheme onedark")
+o.background = "dark"
+vim.cmd.colorscheme "catppuccin"
 
 -- General configuration
 o.swapfile = false
@@ -17,7 +18,7 @@ o.hidden = true
 o.backup = false
 o.smartcase = true
 o.mouse = 'a'
-o.encoding = "utf-8"
+o.encoding = 'utf-8'
 o.relativenumber = true
 o.cursorline = true
 

@@ -2,13 +2,16 @@
 
 {
   services.syncthing = {
+    user = "matteo";
+    group = "wheel";
     enable = true;
     dataDir = "/home/matteo/Storage/Syncthing";
-    configDir = "/home/matteo/Storage/Syncthing/.config";
+    configDir = "/home/matteo/Storage/Syncthing/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true;
+    openDefaultPorts = true;
     devices = {
-        "iPad" = { id = "X7GU3DG-4WCJWLA-XBGCR2J-YTOPNXO-OSJUZXP-7ZVUVI2-PW44CQX-FEBW7AQ"; };
+        "iPad" = { id = "<YOUR DEVICE ID>"; };
     };
     folders = {
         "Books" = {
@@ -20,6 +23,6 @@
             devices = [ "iPad" ];
         };
     };
-  }
+  };
 }
 

@@ -1,6 +1,13 @@
 { config, pkgs, ... }:
 
-{
+let
+    exa = "${pkgs.exa}/bin/exa";
+    zathura = "${pkgs.zathura}/bin/zathura";
+    fd = "${pkgs.fd}/bin/fd";
+    grep = "${pkgs.ripgrep}/bin/rg";
+    fzf = "${pkgs.fzf}/bin/fzf";
+    bat = "${pkgs.bat}/bin/bat";
+in {
   programs.zsh = {
     enable = true;
     enableAutosuggestions = true;
@@ -12,15 +19,16 @@
       options-home = "man home-configuration.nix";
       ls = "ls --color=auto";
       l = "exa -l --icons";
-      grep = "${pkgs.ripgrep}/bin/rg";
+      grep = grep;
       todo = "${pkgs.neovim}/bin/nvim $ZETTELKASTEN_HOME/organizer/TodoList.md";
-      fcd = "cd ''$(${pkgs.fd}/bin/fd --type d | ${pkgs.fzf}/bin/fzf)";
+      fcd = "cd ''$(${fd} --type d | ${fzf})";
       bat = "bat --theme=OneHalfDark";
+      pdfopen = "${zathura} \"$(${fd} --type f -e pdf . $HOME | ${fzf})\"";
     };
 
     # Setup custom prompt
     initExtra = ''
-        PROMPT="%B%F{blue}λ%f %F{244}%f %F{cyan}%1~%f%b "
+        PROMPT="%B%F{red}λ%f %F{244}%f %F{cyan}%1~%f%b "
         ZETTELKASTEN_HOME="$HOME/zettelkasten"
     '';
 

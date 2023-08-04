@@ -2,7 +2,7 @@
 
 let
   myPolybar = pkgs.polybar.override {
-    i3GapsSupport = true;
+    i3Support = true;
     alsaSupport = true;
     iwSupport = true;
     githubSupport = true;
@@ -32,10 +32,10 @@ in
         font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
         font-1 = "Hack Nerd Font:style=Mono:pixelsize=18:antialias=true;3";
         font-2 = "Hack Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
-        font-3 = unifont:fontformat=truetype:size=8:antialias=false;
-        modules-left = "i3 lseparator";
-        modules-center = "rseparator date lseparator";
-        modules-right = "rseparator cpu rseparator filesystem rseparator pulseaudio rseparator";
+        font-3 = "unifont:fontformat=truetype:size=8:antialias=false";
+        modules-left = "i3";
+        modules-center = "date";
+        modules-right = "cpu filesystem pulseaudio network";
         tray-position = "right";
         tray-foreground = white;
         tray-padding = "2px";
@@ -43,7 +43,8 @@ in
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         line-size = 2;
-        module-margin = "6px";
+        module-margin = "8px";
+        padding-right = "1";
       };
 
       "module/rseparator" = {
@@ -90,7 +91,7 @@ in
 
       "module/date" = {
         type = "internal/date";
-        format = "<label>";
+        format = "[<label>]";
         interval = 5;
         date-alt = "%A %d %b";
         time = "%H:%M";
@@ -100,10 +101,10 @@ in
 
       "module/pulseaudio" = {
         type = "internal/pulseaudio";
-        format-volume = "<ramp-volume> <label-volume>";
+        format-volume = "[<ramp-volume> <label-volume>]";
         label-volume = "%percentage%%";
-        label-muted = "婢 Muted";
-        ramp.volume = ["奄" "奔" "墳"];
+        label-muted = "󰖁 Muted";
+        ramp-volume = [""];
         click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
       };
 
@@ -111,14 +112,23 @@ in
         type = "internal/fs";
         mount-0 = "/";
         fixed-values = false;
-        format-mounted = " <label-mounted>";
+        format-mounted = "[ <label-mounted>]";
         label-mounted = "%used%";
       };
 
       "module/cpu" = {
         type = "internal/cpu";
-        format = " <label>";
+        format = "[ <label>]";
         label = "%percentage%%";
+      };
+
+      "module/network" = {
+        type = "internal/network";
+        interface = "wlp8s0";
+        interval = "5";
+        label-connected = "%{A1:alacritty -e nmtui:}%essid%%{A}";
+        format-disconnected = "[󰖪 Disconnected]";
+        format-connected = "[  <label-connected>]"; 
       };
 
     };

@@ -2,7 +2,6 @@
 let
   # Language Servers to be installed
   languageServers = with pkgs; [
-    metals                    # Scala
     haskell-language-server   # Haskell
     rust-analyzer             # Rust
   ];
@@ -17,16 +16,21 @@ in
 
     # Configurations are stored in separate files
     extraConfig = ''
-      luafile ${builtins.toString ./init.lua}
-      luafile ${builtins.toString ./lsp.lua}
-      luafile ${builtins.toString ./lsp.lua}
-      luafile ${builtins.toString ./plugins/shade.lua}
-      luafile ${builtins.toString ./plugins/lualine.lua}
-      luafile ${builtins.toString ./plugins/cmp-nvim.lua}
-      luafile ${builtins.toString ./plugins/nvim-tree.lua}
-      luafile ${builtins.toString ./plugins/which-key.lua}
-      luafile ${builtins.toString ./plugins/toggleterm.lua}
-      luafile ${builtins.toString ./plugins/telescope.lua}
+      lua << EOF
+      if not vim.g.vscode then
+          ${builtins.readFile ./init.lua}
+          ${builtins.readFile ./lsp.lua}
+          ${builtins.readFile ./lsp.lua}
+          ${builtins.readFile ./plugins/shade.lua}
+          ${builtins.readFile ./plugins/lualine.lua}
+          ${builtins.readFile ./plugins/cmp-nvim.lua}
+          ${builtins.readFile ./plugins/nvim-tree.lua}
+          ${builtins.readFile ./plugins/which-key.lua}
+          ${builtins.readFile ./plugins/toggleterm.lua}
+          ${builtins.readFile ./plugins/telescope.lua}
+          ${builtins.readFile ./plugins/treesitter.lua}
+      end
+      EOF
     '';
 
     # Some packages required to run plugins
@@ -54,8 +58,6 @@ in
           plugin = nvim-treesitter.withPlugins (plugins: with plugins; [
             tree-sitter-python
             tree-sitter-cpp
-            tree-sitter-c
-            tree-sitter-haskell
             tree-sitter-rust
             tree-sitter-latex
             tree-sitter-markdown
@@ -63,8 +65,8 @@ in
             tree-sitter-json5
             tree-sitter-lua
             tree-sitter-nix
+            tree-sitter-glsl
           ]);
-          config = "luafile ${builtins.toString ./plugins/treesitter.lua}";
       }
 
       nvim-tree-lua               # File Tree
@@ -84,7 +86,7 @@ in
       nvim-web-devicons           # Icons
       lualine-nvim                # Better Status Bar
       lualine-lsp-progress        # Show loading progress inside statusbar
-      onedarkpro-nvim
+      catppuccin-nvim
     ];
   };
 }

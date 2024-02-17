@@ -9,17 +9,19 @@ let
     tdesktop                          # Telegram
     mpv                               # Video Player
     rofi-power-menu                   # Power menu
-    obsidian                          # Digital brain
+    # obsidian                          # Digital brain
     anki-bin                          # Flashcards
     jetbrains.idea-ultimate           # IntelliJ
     zathura                           # .pdf viewer
     vifm                              # File manager
-    element-desktop                   # Matrix.org client
+    # element-desktop                   # Matrix.org client
     calibre                           # Ebook Library
     neovide                           # Neovim GUI
     vscodium                          # VSCode
     unzip                             # unzip
-    protege-distribution
+    blender
+    zotero
+    musescore
   ];
 
   utilities = with pkgs; [
@@ -32,7 +34,7 @@ let
     duf                               # disk usage/free utility
     fd                                # "find" for files
     fzf                               # fuzzy finder
-    exa                               # a better ls
+    eza                               # a better ls
     libnotify                         # notify-send command
     texlive.combined.scheme-full      # LaTeX
     jdk17                             # Java JDK

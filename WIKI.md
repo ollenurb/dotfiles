@@ -3,6 +3,12 @@
 Here are some useful informations regarding general maintainability and usage
 of the system.
 
+## Drive Sync
+
+There is a systemd service (`drive_mount`) that synchronizes the content of
+Google Drive with the `~/Remote` folder. Make sure you habe configured the
+remote named `drive` using `rclone` if the service doesn't start.
+[Here](https://rclone.org/drive/) is a quick guide to set it up.
 
 ## Update System
 

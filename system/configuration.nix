@@ -14,6 +14,7 @@ in
 
   imports = [
       ./hardware-configuration.nix
+      ./services.nix
   ];
 
   # Enabling dconf allow the use of gsettings
@@ -26,7 +27,7 @@ in
     # Xorg-configurations
     xserver = {
       enable = true;
-      layout = "us";
+      xkb.layout = "us";
       autorun = true;
       videoDrivers = ["nvidia"];
       screenSection = ''
@@ -93,9 +94,8 @@ in
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console = {
-    keyMap = "us";
-  };
+  console.keyMap = "us";
+  services.xserver.xkb.variant = "altgr-intl";
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
@@ -107,7 +107,7 @@ in
   hardware.pulseaudio.enable = true;
 
   # Making fonts accessible to applications.
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = ["Hack"]; })
   ];
   /* fonts.fonts = customFonts; */
@@ -151,6 +151,7 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    rclone
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
   ];
@@ -171,23 +172,8 @@ in
     };
   };
 
-  # Enable the Avahi daemon (Essentially used to stream the iPad screen)
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      workstation = true;
-      userServices = true;
-    };
-  };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 7000 7100 ];
-  networking.firewall.allowedUDPPorts = [ 6000 6001 7011 ];
   # Or disable the firewall altogether.
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -195,7 +181,7 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.11"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 
 }
 

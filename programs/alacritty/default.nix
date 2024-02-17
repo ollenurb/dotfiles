@@ -5,7 +5,6 @@
     enable = true;
     settings = {
       window = {
-        dynamic-padding = true;
         padding.x = 0;
         padding.y = 0;
       };

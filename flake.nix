@@ -1,32 +1,27 @@
 {
-    description = "System flake configuration";
+    description = "NixOS system configurations";
     inputs = {
         nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-        home-manager = {
-              url = "github:nix-community/home-manager";
-              inputs.nixpkgs.follows = "nixpkgs";
-        };
+        home-manager.url = "github:nix-community/home-manager";
+        home-manager.inputs.nixpkgs.follows = "nixpkgs";
     };
-    outputs = { self, nixpkgs, home-manager }:
+    outputs = inputs@ { self, nixpkgs, home-manager, ... }:
         let
             system = "x86_64-linux";
-            pkgs = import nixpkgs {
-                inherit system;
-                config.allowUnfree = true;
+            commonInherits = {
+                inherit system inputs nixpkgs home-manager;
             };
-            lib = nixpkgs.lib;
         in {
             nixosConfigurations = {
-                pluto = lib.nixosSystem {
-                    inherit system;
-                    modules = [ ./system/configuration.nix ];
-                };
-            };
-            homeConfigurations = {
-                pluto = home-manager.lib.homeManagerConfiguration {
-                    inherit pkgs;
-                    modules = [ ./home.nix ];
-                };
+                # Desktop PC
+                pluto = import ./hosts/make-host.nix (commonInherits // {
+                    host = "pluto";
+                });
+
+                # Laptop (Thinkpad T470)
+                lambda = (import ./hosts/make-host.nix (commonInherits // {
+                    host = "lambda";
+                }));
             };
         };
 }

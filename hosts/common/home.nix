@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, ... }:
+{ config, lib, pkgs, user, ... }:
 
 let
   programs = with pkgs; [
@@ -61,13 +61,17 @@ let
   ];
 
 in {
-  imports = (import ./programs) ++ (import ./shell) ++ [(import ./theming/catppuccin.nix)];
+  imports = [
+    ../../programs
+    ../../shell
+    ../../theming/catppuccin.nix)
+  ];
 
   home = {
     username = "matteo";
-    homeDirectory = "/home/matteo";
+    homeDirectory = "/home/${user}";
     stateVersion = "22.11";
-    packages = programs ++ utilities ++ juliaToolchain /* ++ haskellToolchain */ ++ rustToolchain;
+    packages = programs ++ utilities ++ juliaToolchain ++ rustToolchain;
     sessionVariables = {
       EDITOR = "nvim";
       # Rust-related stuff
@@ -80,7 +84,7 @@ in {
   gtk = {
     enable = true;
     theme = {
-      package = pkgs.callPackage ./theming/gtk/onedark-gtk.nix { };
+      package = pkgs.callPackage ../../theming/gtk/onedark-gtk.nix { };
       name = "adwaita-one-dark";
     };
     iconTheme = {
@@ -100,10 +104,6 @@ in {
         core.editor = "nvim";
         init.defaultBranch = "main";
       };
-    };
-
-    home-manager = {
-      enable = true;
     };
   };
 }

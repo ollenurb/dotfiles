@@ -5,12 +5,6 @@ let
     remoteDir = "drive";
 in
 {
-
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    wget
-  ];
-
     # Allow fusemount
     environment.etc."fuse.conf".text = ''
       user_allow_other

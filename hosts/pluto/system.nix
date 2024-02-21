@@ -1,21 +1,12 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hostname, user, ... }:
 
-let
-  customFonts = pkgs.nerdfonts.override {
-    fonts = [ "Hack" ];
-  };
-in
 {
+  imports = [ ../common/services.nix ];
 
   environment.variables.XCURSOR_SIZE = "32";
-
-  imports = [
-      ./hardware-configuration.nix
-      ./services.nix
-  ];
 
   # Enabling dconf allow the use of gsettings
   programs.dconf.enable = true;
@@ -38,7 +29,7 @@ in
       displayManager = {
         defaultSession = "none+i3";
         autoLogin.enable = true;
-        autoLogin.user = "matteo";
+        autoLogin.user = "${user}";
         lightdm.greeter.enable = false;
       };
 
@@ -74,7 +65,7 @@ in
   };
 
   # Define your hostname
-  networking.hostName = "pluto";
+  networking.hostName = "${hostname}";
 
   # Setup network manager and nm-applet
   networking.networkmanager = {
@@ -110,10 +101,9 @@ in
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = ["Hack"]; })
   ];
-  /* fonts.fonts = customFonts; */
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.matteo = {
+  users.users."${user}" = {
     isNormalUser = true;
     extraGroups = ["wheel" "adbusers"]; # Enable ‘sudo’ and `adb` for the user.
     shell = pkgs.zsh;
@@ -144,8 +134,6 @@ in
       experimental-features = nix-command flakes
     '';
 
-    # Required by Cachix to be used as non-root user
-    # trusted-users = [ "root" "matteo" ];
   };
 
   # List packages installed in system profile. To search, run:

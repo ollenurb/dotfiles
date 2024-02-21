@@ -17,7 +17,7 @@
                 # Desktop PC
                 pluto = import ./hosts/make-host.nix (commonInherits // {
                     host = "pluto";
-                    stateVersion = "22.11";
+                    stateVersion = "24.05";
                     hasBattery = false;
                     hdpi = true;
                 });
@@ -25,7 +25,7 @@
                 # Laptop (Thinkpad T470)
                 lambda = (import ./hosts/make-host.nix (commonInherits // {
                     host = "lambda";
-                    stateVersion = "22.11";
+                    stateVersion = "24.05";
                     hasBattery = true;
                     hdpi = false;
                 }));

@@ -1,5 +1,5 @@
 # Nix derivation that builds a single host
-{ inputs, system, nixpkgs, home-manager, host, ... }:
+{ lib, inputs, system, nixpkgs, home-manager, host, stateVersion, hasBattery, ... }:
 
 let
     # Define a single user for home-manager
@@ -18,18 +18,7 @@ let
     };
 
     # Define extra arguments
-    extraArgs = { inherit pkgs system inputs host user; };
-
-    # Define the home-manager module
-    homeManager = home-manager.nixosModules.home-manager {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = extraArgs;
-        home-manager.users.${user} = {
-            imports = [ ./${host}/home.nix ];
-        };
-    };
-
+    extraArgs = { inherit pkgs system stateVersion hasBattery inputs host user; };
 in
 # Actually define the nixos system
 nixpkgs.lib.nixosSystem
@@ -39,6 +28,13 @@ nixpkgs.lib.nixosSystem
         modules = [
             ./${host}/system.nix
             ./${host}/hardware.nix
-            homeManager
+            home-manager.nixosModules.home-manager {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+                home-manager.extraSpecialArgs = extraArgs;
+                home-manager.users.${user} = {
+                    imports = [ ./${host}/home.nix ];
+                };
+            }
         ];
     }

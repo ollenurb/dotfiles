@@ -1,4 +1,4 @@
-{ config, pkgs, lib ,... }:
+{ config, pkgs, lib, hasBattery, ... }:
 
 let
   myPolybar = pkgs.polybar.override {
@@ -8,6 +8,10 @@ let
     githubSupport = true;
     pulseSupport = true;
   };
+
+  battScript = pkgs.callPackage ./scripts/batterycomb.nix {};
+
+  battery = if hasBattery then "battery-combined" else "";
 
   white = "#FFFFFF";
 in
@@ -35,7 +39,7 @@ in
         font-3 = "unifont:fontformat=truetype:size=8:antialias=false";
         modules-left = "i3";
         modules-center = "date";
-        modules-right = "cpu filesystem pulseaudio network";
+        modules-right = "cpu filesystem pulseaudio ${battery} network";
         tray-position = "right";
         tray-foreground = white;
         tray-padding = "2px";
@@ -131,6 +135,14 @@ in
         format-connected = "[  <label-connected>]"; 
       };
 
+      
+      "module/battery-combined" = lib.mkIf hasBattery {
+        type = "custom/script";
+        exec = "${battScript}/bin/batterycomb";
+        format = "<label>";
+        label = "%output%";
+        interval = 5;
+      };
     };
   };
 }

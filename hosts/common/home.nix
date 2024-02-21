@@ -1,109 +1,65 @@
-{ config, lib, pkgs, user, ... }:
+{ config, lib, pkgs, user, stateVersion, ... }:
 
 let
-  programs = with pkgs; [
-    nix-doc                           # nix documentation search tool
-    pavucontrol                       # pulseaudio control
-    firefox                           # browser
-    feh                               # Image viewer
-    tdesktop                          # Telegram
-    mpv                               # Video Player
-    rofi-power-menu                   # Power menu
-    # obsidian                          # Digital brain
-    anki-bin                          # Flashcards
-    jetbrains.idea-ultimate           # IntelliJ
-    zathura                           # .pdf viewer
-    vifm                              # File manager
-    # element-desktop                   # Matrix.org client
-    calibre                           # Ebook Library
-    neovide                           # Neovim GUI
-    vscodium                          # VSCode
-    unzip                             # unzip
-    blender
-    zotero
-    musescore
-  ];
+  editor = "nvim";
+in
+{
 
-  utilities = with pkgs; [
-    pandoc                            # Documents generator
-    entr                              # utility that watch for file changes
-    ripgrep                           # faster grep
-    htop                              # better top
-    killall                           # kill all processes
-    bat                               # cat with syntax hightlight
-    duf                               # disk usage/free utility
-    fd                                # "find" for files
-    fzf                               # fuzzy finder
-    eza                               # a better ls
-    libnotify                         # notify-send command
-    texlive.combined.scheme-full      # LaTeX
-    jdk17                             # Java JDK
-    unzip                             # Unzip stuff
-    flameshot                         # Screenshots
-    gcc                               # C/C++ Compiler
-  ];
-
-  rustToolchain = with pkgs; [
-    cargo                             # cargo
-    rustc                             # compiler
-    rustfmt                           # formatter
-  ];
-
-  haskellToolchain = with pkgs.haskellPackages; [
-    brittany                          # code formatter
-    cabal-install                     # cabal
-    ghc                               # compiler
-    cabal2nix                         # converts .cabal > .nix
-  ];
-
-  juliaToolchain = with pkgs; [
-    julia
-  ];
-
-in {
   imports = [
-    ../../programs
-    ../../shell
-    ../../theming/catppuccin.nix)
+    ./zsh.nix
+    ../../theming/catppuccin.nix
   ];
 
   home = {
-    username = "matteo";
+    username = "${user}";
     homeDirectory = "/home/${user}";
-    stateVersion = "22.11";
-    packages = programs ++ utilities ++ juliaToolchain ++ rustToolchain;
+    stateVersion = stateVersion;
     sessionVariables = {
-      EDITOR = "nvim";
-      # Rust-related stuff
-      RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
-      PKG_CONFIG_PATH ="${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
+      EDITOR = "${editor}";
     };
   };
 
   # Change GTK theme
   gtk = {
     enable = true;
+    font.name = "Iosevka 10";
+
     theme = {
-      package = pkgs.callPackage ../../theming/gtk/onedark-gtk.nix { };
-      name = "adwaita-one-dark";
+      package = pkgs.catppuccin-gtk.override {
+        variant = "mocha";
+        accents = ["peach"];
+      };
+      name = "Catppuccin-Mocha-Standard-Peach-Dark";
     };
+
     iconTheme = {
       package = pkgs.gruvbox-dark-icons-gtk;
       name = "oomox-gruvbox-dark";
     };
   };
 
+  # Change cursor
+  home.pointerCursor = {
+    name = "Catppuccin-Mocha-Dark-Cursors";
+    package = pkgs.catppuccin-cursors.mochaDark;
+    size = 16;
+  };
+
   programs = {
+    # Direnv config
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
+
+    # Git config
     git = {
       enable = true;
       userName = "Ollenurb";
       userEmail = "brunello.mtt@gmail.com";
       extraConfig = {
-        core.editor = "nvim";
+        core.editor = "${editor}";
         init.defaultBranch = "main";
       };
     };
   };
+
 }

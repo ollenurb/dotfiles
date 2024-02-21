@@ -9,6 +9,7 @@
         let
             system = "x86_64-linux";
             commonInherits = {
+                inherit (nixpkgs) lib;
                 inherit system inputs nixpkgs home-manager;
             };
         in {
@@ -16,11 +17,15 @@
                 # Desktop PC
                 pluto = import ./hosts/make-host.nix (commonInherits // {
                     host = "pluto";
+                    stateVersion = "22.11";
+                    hasBattery = false;
                 });
 
                 # Laptop (Thinkpad T470)
                 lambda = (import ./hosts/make-host.nix (commonInherits // {
                     host = "lambda";
+                    stateVersion = "22.11";
+                    hasBattery = true;
                 }));
             };
         };

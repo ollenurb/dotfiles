@@ -3,10 +3,25 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, lib, host, user, stateVersion, ... }:
 
+let
+  customFonts = pkgs.nerdfonts.override {
+    fonts = [ "Iosevka" ];
+  };
+in
 {
-  imports = [ ../common/services.nix ];
+  imports =
+    [
+      # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      # Power management
+      ./power-management.nix
+      # Custom Services
+      ./services.nix
+    ];
 
-  environment.variables.XCURSOR_SIZE = "32";
+  boot.initrd.availableKernelModules = [
+    "thinkpad_acpi"
+  ];
 
   # Enabling dconf allow the use of gsettings
   programs.dconf.enable = true;
@@ -18,13 +33,8 @@
     # Xorg-configurations
     xserver = {
       enable = true;
-      xkb.layout = "us";
+      videoDrivers = [ "intel" ];
       autorun = true;
-      videoDrivers = ["nvidia"];
-      screenSection = ''
-        Option         "metamodes" "3440x1440_100 +0+0"
-      '';
-
       # Display Manager configurations
       displayManager = {
         defaultSession = "none+i3";
@@ -32,7 +42,6 @@
         autoLogin.user = "${user}";
         lightdm.greeter.enable = false;
       };
-
       # i3-configurations
       windowManager.i3 = {
         enable = true;
@@ -41,18 +50,24 @@
     };
   };
 
-  # Setup nvidia driver
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.modesetting.enable = true;
+  # Allow fusemount
+  environment.etc."fuse.conf".text = ''
+    user_allow_other
+  '';
 
-  # Enable secret storing service
-  services.gnome.gnome-keyring.enable = true;
+  security.wrappers = {
+    fusermount.source = "${pkgs.fuse}/bin/fusermount";
+  };
 
-  nixpkgs.config.allowUnfree = true;
-  # Enable opengl
-  hardware.opengl.enable = true;
-  # Enable ADB
-  programs.adb.enable = true;
+  # Load VAAPI drivers to offload video decoding/encoding from the CPU
+  hardware.opengl = {
+    enable = true;
+    driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      intel-media-driver    # iHD
+      vaapiIntel            # i965
+    ];
+  };
 
   # Use the GRUB bootloader.
   boot.loader = {
@@ -60,18 +75,17 @@
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
+      splashImage = ../theming/grub_bg.png;
     };
     efi.canTouchEfiVariables = true;
   };
 
   # Define your hostname
-  networking.hostName = "${host}";
+  networking.hostName = "idra";
 
   # Setup network manager and nm-applet
-  networking.networkmanager = {
-    enable = true;
-    wifi.scanRandMacAddress = false;
-  };
+  networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
 
   # Set your time zone.
   time.timeZone = "Europe/Rome";
@@ -80,45 +94,73 @@
   # Per-interface useDHCP will be mandatory in the future, so this generated config
   # replicates the default behaviour.
   networking.useDHCP = false;
-  networking.interfaces.enp4s0.useDHCP = false;
-  networking.interfaces.wlp8s0.useDHCP = false;
+  networking.interfaces.enp0s31f6.useDHCP = false;
+  # networking.interfaces.wlp4s0.useDHCP = false;
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
-  console.keyMap = "us";
+  console = {
+    keyMap = "us";
+  };
+  # set layout
+  services.xserver.xkb.layout = "us";
   services.xserver.xkb.variant = "altgr-intl";
+  # disable xterm
+  services.xserver = {
+    excludePackages = [ pkgs.xterm ];
+    desktopManager.xterm.enable = false;
+  };
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
+
+  # Enable BT
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = false;
+  };
+
+  hardware.trackpoint = {
+    enable = true;
+    emulateWheel = true;
+    speed = 250;
+    sensitivity = 100;
+  };
 
   # Enable sound.
   sound = {
     enable = true;
   };
+
   hardware.pulseaudio.enable = true;
 
   # Making fonts accessible to applications.
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["Hack"]; })
+    customFonts
+    font-awesome
   ];
+
+  # Enable touchpad support (enabled default in most desktopManager).
+  services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${user}" = {
     isNormalUser = true;
-    extraGroups = ["wheel" "adbusers"]; # Enable ‘sudo’ and `adb` for the user.
+    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
   programs.zsh.enable = true;
-  security.sudo.enable = true;
-  security.sudo.wheelNeedsPassword = false;
 
   # Nix daemon config
   nix = {
     package = pkgs.nixFlakes;
-
     # Automate `nix-store --optimise`
-    optimise.automatic = true;
+    settings.auto-optimise-store = true;
 
     # Automate garbage collection
     gc = {
@@ -134,33 +176,38 @@
       experimental-features = nix-command flakes
     '';
 
+    # Required by Cachix to be used as non-root user
+    settings.trusted-users = [ "root" "${user}" ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    rclone
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim 
     wget
+    xorg.xbacklight
+    # just to check if we have VA-API enabled
+    libva-utils
   ];
 
   # List services that you want to enable:
   services.acpid.enable = true;
 
-  # Enable this only when you need to use calibre
-  services.udisks2.enable = true;
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+  services.blueman.enable = true;
 
   # Enable Podman (an alternative docker engine)
   virtualisation = {
     podman = {
       enable = true;
-
+  
       # Create a `docker` alias for podman, to use it as a drop-in replacement
       dockerCompat = true;
     };
   };
 
-  # Or disable the firewall altogether.
+ # Or disable the firewall altogether.
   networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
@@ -170,5 +217,5 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = stateVersion; # Did you read the comment?
-}
 
+}

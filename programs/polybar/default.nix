@@ -116,13 +116,13 @@ in
         type = "internal/fs";
         mount-0 = "/";
         fixed-values = false;
-        format-mounted = " <label-mounted>";
+        format-mounted = "  <label-mounted>";
         label-mounted = "%used%";
       };
 
       "module/cpu" = {
         type = "internal/cpu";
-        format = " <label>";
+        format = "  <label>";
         label = "%percentage%%";
       };
 
@@ -131,8 +131,8 @@ in
         interface = if host == "lambda" then "wlan0" else "wlp8s0";
         interval = "5";
         label-connected = "%{A1:alacritty -e nmtui:}%essid%%{A}";
-        format-disconnected = "󰖪 Disconnected";
-        format-connected = " <label-connected>"; 
+        format-disconnected = "󰖪  Disconnected";
+        format-connected = "  <label-connected>"; 
       };
       
       "module/battery-combined" = lib.mkIf hasBattery {

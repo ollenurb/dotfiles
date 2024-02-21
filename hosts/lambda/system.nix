@@ -66,6 +66,7 @@ in
     extraPackages = with pkgs; [
       intel-media-driver    # iHD
       vaapiIntel            # i965
+      rclone
     ];
   };
 

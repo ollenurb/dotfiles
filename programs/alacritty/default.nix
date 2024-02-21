@@ -11,7 +11,7 @@
 
       font = {
         normal.family = "JetBrainsMono Nerd Font Mono";
-        size = if hdpi then 14.0 else 9.0;
+        size = if hdpi then 14.0 else 11.0;
       };
 
       shell = { program = "${pkgs.zsh}/bin/zsh"; };

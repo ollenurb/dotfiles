@@ -31,7 +31,7 @@ let
     calibre                           # Ebook Reader
     slack
     gnome.nautilus
-    rclone
+    morgen
   ];
 
   rustToolchain = with pkgs; [
@@ -50,10 +50,9 @@ in
     ../../programs/polybar
     ../../programs/rofi
     ../../programs/redshift
+    ../../programs/picom
   ];
 
   home.packages = programs ++ rustToolchain;
 
 }
-
-

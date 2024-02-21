@@ -70,6 +70,7 @@ in {
     ../../programs/polybar
     ../../programs/rofi
     ../../programs/redshift
+    ../../programs/picom
   ];
 
   home = {

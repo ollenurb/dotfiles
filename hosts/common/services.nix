@@ -14,13 +14,15 @@ in
     fusermount.source = "${pkgs.fuse}/bin/fusermount";
   };
 
-
   systemd.user.services.drive_mount = {
+    enable = true;
+
     unitConfig = {
       Description = "Mount Google Drive";
       After = [ "network-online.target" ];
     };
-    wantedBy = [ "multi-user.target" ];
+
+    wantedBy = [ "default.target" ];
 
     serviceConfig = {
       ExecStartPre = "/run/current-system/sw/bin/mkdir -p ${mountDir}";

@@ -18,7 +18,7 @@ in
     border = mkLiteral "0px";
     border-color = mkLiteral "@ac";
     border-radius = mkLiteral "0px";
-    width = mkLiteral "35%";
+    width = mkLiteral (if hdpi then "35%" else "50%");
     location = mkLiteral "center";
     x-offset = 0;
     y-offset = 0;

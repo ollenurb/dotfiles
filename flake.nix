@@ -19,6 +19,7 @@
                     host = "pluto";
                     stateVersion = "22.11";
                     hasBattery = false;
+                    hdpi = true;
                 });
 
                 # Laptop (Thinkpad T470)
@@ -26,6 +27,7 @@
                     host = "lambda";
                     stateVersion = "22.11";
                     hasBattery = true;
+                    hdpi = false;
                 }));
             };
         };

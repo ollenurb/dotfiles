@@ -10,7 +10,7 @@
         origin = "top-right";
         offset = "14x50";
         frame_width = 0;
-        font = "Iosevka Nerd Font 12";
+        font = "JetBrainsMono Nerd Font 12";
         word_wrap = true;
         markup = true;
         format = "<b>%s</b>\n%b";

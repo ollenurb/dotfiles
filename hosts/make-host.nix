@@ -1,5 +1,5 @@
 # Nix derivation that builds a single host
-{ lib, inputs, system, nixpkgs, home-manager, host, stateVersion, hasBattery, ... }:
+{ lib, inputs, system, nixpkgs, home-manager, host, stateVersion, hdpi, hasBattery, ... }:
 
 let
     # Define a single user for home-manager
@@ -18,7 +18,7 @@ let
     };
 
     # Define extra arguments
-    extraArgs = { inherit pkgs system stateVersion hasBattery inputs host user; };
+    extraArgs = { inherit pkgs system stateVersion hasBattery inputs host hdpi user; };
 in
 # Actually define the nixos system
 nixpkgs.lib.nixosSystem

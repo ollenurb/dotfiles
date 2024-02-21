@@ -22,7 +22,7 @@ in
   # Change GTK theme
   gtk = {
     enable = true;
-    font.name = "Iosevka 10";
+    font.name = "JetBrainsMono Nerd Font 10";
 
     theme = {
       package = pkgs.catppuccin-gtk.override {

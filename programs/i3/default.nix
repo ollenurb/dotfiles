@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hdpi, ... }:
 
 let
   # Get modifier key
@@ -29,7 +29,7 @@ in
     floating.modifier = modifier;
     bars = [];
     fonts = {
-      names = ["Hack Nerd Font"];
+      names = ["JetBrainsMono Nerd Font"];
       size = 13.0;
     };
 
@@ -46,7 +46,7 @@ in
       { command = "$HOME/.fehbg"; always = false; notification = false; }
     ];
 
-    gaps.inner = 12;
+    gaps.inner = if hdpi then 12 else 8;
     gaps.smartBorders = "on";
 
     keybindings = lib.mkOptionDefault {

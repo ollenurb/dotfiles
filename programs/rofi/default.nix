@@ -1,14 +1,14 @@
-{ pkgs, config, ... }:
+{ pkgs, config, hdpi, ... }:
 
 let
-  rofiTheme = import ./theme.nix {config = config;};
+  rofiTheme = import ./theme.nix { config = config; hdpi = hdpi; };
 in
 {
   programs.rofi = {
     enable = true;
     terminal = "${pkgs.alacritty}/bin/alacritty";
     theme = rofiTheme;
-    font = "Hack Nerd Font 12";
+    font = "JetBrainsMono Nerd Font 12";
     extraConfig = {
       show-icons = true;
     	icon-theme = "Papirus";

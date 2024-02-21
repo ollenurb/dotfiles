@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, hdpi, ... }:
 
 {
   programs.alacritty = {
@@ -10,11 +10,13 @@
       };
 
       font = {
-        normal.family = "Hack Nerd Font Mono";
-        size = 14.0;
+        normal.family = "JetBrainsMono Nerd Font Mono";
+        size = if hdpi then 14.0 else 9.0;
       };
 
       shell = { program = "${pkgs.zsh}/bin/zsh"; };
+      
+      selection.save_to_clipboard = true;
 
       colors = {
         primary = {

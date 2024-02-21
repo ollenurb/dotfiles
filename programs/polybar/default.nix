@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hasBattery, ... }:
+{ config, pkgs, lib, hasBattery, hdpi, host, ... }:
 
 let
   myPolybar = pkgs.polybar.override {
@@ -9,7 +9,7 @@ let
     pulseSupport = true;
   };
 
-  battScript = pkgs.callPackage ./scripts/batterycomb.nix {};
+  battScript = pkgs.callPackage ./batterycomb.nix {};
 
   battery = if hasBattery then "battery-combined" else "";
 
@@ -33,15 +33,15 @@ in
         top = true;
         background = "${config.colors.background}";
         foreground = white;
-        font-0 = "Hack Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
-        font-1 = "Hack Nerd Font:style=Mono:pixelsize=18:antialias=true;3";
-        font-2 = "Hack Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
+        font-0 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
+        font-1 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=18:antialias=true;3";
+        font-2 = "JetBrainsMono Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
         font-3 = "unifont:fontformat=truetype:size=8:antialias=false";
         modules-left = "i3";
         modules-center = "date";
         modules-right = "cpu filesystem pulseaudio ${battery} network";
         tray-position = "right";
-        tray-foreground = white;
+        tray-foreground = "${config.colors.foreground}";
         tray-padding = "2px";
         override-redirect = false;
         cursor-click = "pointer";
@@ -95,7 +95,7 @@ in
 
       "module/date" = {
         type = "internal/date";
-        format = "[<label>]";
+        format = "<label>";
         interval = 5;
         date-alt = "%A %d %b";
         time = "%H:%M";
@@ -105,10 +105,10 @@ in
 
       "module/pulseaudio" = {
         type = "internal/pulseaudio";
-        format-volume = "[<ramp-volume> <label-volume>]";
+        format-volume = "<ramp-volume> <label-volume>";
         label-volume = "%percentage%%";
         label-muted = "󰖁 Muted";
-        ramp-volume = [""];
+        ramp-volume = ["󰕿" "󰖀" "󰕾"];
         click-right = "${pkgs.pavucontrol}/bin/pavucontrol";
       };
 
@@ -116,25 +116,24 @@ in
         type = "internal/fs";
         mount-0 = "/";
         fixed-values = false;
-        format-mounted = "[ <label-mounted>]";
+        format-mounted = " <label-mounted>";
         label-mounted = "%used%";
       };
 
       "module/cpu" = {
         type = "internal/cpu";
-        format = "[ <label>]";
+        format = " <label>";
         label = "%percentage%%";
       };
 
       "module/network" = {
         type = "internal/network";
-        interface = "wlp8s0";
+        interface = if host == "lambda" then "wlan0" else "wlp8s0";
         interval = "5";
         label-connected = "%{A1:alacritty -e nmtui:}%essid%%{A}";
-        format-disconnected = "[󰖪 Disconnected]";
-        format-connected = "[  <label-connected>]"; 
+        format-disconnected = "󰖪 Disconnected";
+        format-connected = " <label-connected>"; 
       };
-
       
       "module/battery-combined" = lib.mkIf hasBattery {
         type = "custom/script";
@@ -143,6 +142,7 @@ in
         label = "%output%";
         interval = 5;
       };
+
     };
   };
 }

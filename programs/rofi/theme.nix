@@ -1,4 +1,4 @@
-{ config }:
+{ config, hdpi }:
 
 let
   inherit (config.lib.formats.rasi) mkLiteral;

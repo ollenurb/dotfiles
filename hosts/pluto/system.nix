@@ -99,7 +99,7 @@
 
   # Making fonts accessible to applications.
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = ["Hack"]; })
+    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
   ];
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

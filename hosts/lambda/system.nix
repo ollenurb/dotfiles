@@ -5,18 +5,18 @@
 
 let
   customFonts = pkgs.nerdfonts.override {
-    fonts = [ "Iosevka" ];
+    fonts = [ "JetBrainsMono" ];
   };
 in
 {
   imports =
     [
       # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      ./hardware.nix
       # Power management
       ./power-management.nix
       # Custom Services
-      ./services.nix
+      ../common/services.nix 
     ];
 
   boot.initrd.availableKernelModules = [
@@ -75,13 +75,13 @@ in
       enable = true;
       devices = [ "nodev" ];
       efiSupport = true;
-      splashImage = ../theming/grub_bg.png;
+      splashImage = ../../theming/grub_bg.png;
     };
     efi.canTouchEfiVariables = true;
   };
 
   # Define your hostname
-  networking.hostName = "idra";
+  networking.hostName = "${host}";
 
   # Setup network manager and nm-applet
   networking.networkmanager.enable = true;

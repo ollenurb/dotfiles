@@ -38,6 +38,7 @@ in
     # Enable floating window for specific programs
     window.commands = [
         { command = "floating enable"; criteria = { instance = "pavucontrol"; }; }
+        { command = "border pixel 1"; criteria = { instance = "^.*"; }; }
     ];
 
     # Restart polybar service on startup

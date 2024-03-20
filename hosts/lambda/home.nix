@@ -32,6 +32,7 @@ let
     slack
     gnome.nautilus
     morgen
+    sshfs
   ];
 
   rustToolchain = with pkgs; [

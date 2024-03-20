@@ -66,7 +66,6 @@ in
     extraPackages = with pkgs; [
       intel-media-driver    # iHD
       vaapiIntel            # i965
-      rclone
     ];
   };
 
@@ -151,10 +150,11 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users."${user}" = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "adbusers" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
+  programs.adb.enable = true;
   programs.zsh.enable = true;
 
   # Nix daemon config
@@ -189,6 +189,7 @@ in
     xorg.xbacklight
     # just to check if we have VA-API enabled
     libva-utils
+    rclone
   ];
 
   # List services that you want to enable:

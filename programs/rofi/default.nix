@@ -7,7 +7,7 @@ in
   programs.rofi = {
     enable = true;
     terminal = "${pkgs.alacritty}/bin/alacritty";
-    theme = rofiTheme;
+    theme = rofiTheme; 
     font = "JetBrainsMono Nerd Font 12";
     extraConfig = {
       show-icons = true;

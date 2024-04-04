@@ -49,6 +49,9 @@ in
     # Direnv config
     direnv.enable = true;
     direnv.nix-direnv.enable = true;
+    bat = {
+        enable = true;
+    };
 
     # Git config
     git = {

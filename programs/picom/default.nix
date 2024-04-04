@@ -10,5 +10,11 @@
     shadowOffsets = [ 0 (-2) ];
     fade = true;
     fadeSteps = [ 0.04 0.04 ];
+#   settings = {
+#       rounded-corners-exclude = [
+#         "window_type = 'dock'" 
+#       ];
+#       corner-radius = 2;
+#   };
   };
 }

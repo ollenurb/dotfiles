@@ -14,7 +14,7 @@ in
     fusermount.source = "${pkgs.fuse}/bin/fusermount";
   };
 
-  systemd.user.services.drive_mount = {
+  systemd.user.services.drive-mount = {
     enable = true;
 
     unitConfig = {

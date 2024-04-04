@@ -40,6 +40,10 @@ let
     rustc                             # compiler
     rustfmt                           # formatter
   ];
+
+  pythonToolchain = with pkgs; [
+    python3
+  ];
 in
 {
   imports = [
@@ -54,6 +58,6 @@ in
     ../../programs/picom
   ];
 
-  home.packages = programs ++ rustToolchain;
+  home.packages = programs ++ rustToolchain ++ pythonToolchain;
 
 }

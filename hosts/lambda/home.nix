@@ -31,8 +31,8 @@ let
     calibre                           # Ebook Reader
     slack
     gnome.nautilus
-    morgen
     sshfs
+    beeper
   ];
 
   rustToolchain = with pkgs; [

@@ -30,28 +30,6 @@ vim.diagnostic.config({
     },
 })
 
--- Haskell
-lspconfig.hls.setup {
-    root_dir = util.root_pattern(
-        '*.hs',
-        '*.cabal',
-        'stack.yaml',
-        'cabal.project',
-        'package.yaml',
-        'hie.yaml'
-    )
-}
-
--- Scala
-lspconfig.metals.setup {
-    root_dir = util.root_pattern(
-        '*.sc',
-        '*.scala',
-        '*.sbt'
-    ),
-    statusBarProvider = 'show-message',
-}
-
 -- Rust
 rust.setup({
     -- server = {

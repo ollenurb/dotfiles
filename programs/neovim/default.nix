@@ -2,7 +2,6 @@
 let
   # Language Servers to be installed
   languageServers = with pkgs; [
-    haskell-language-server   # Haskell
     rust-analyzer             # Rust
   ];
 
@@ -38,7 +37,6 @@ in
 
     # Fetch plugins from pkgs or git using the (plugin) function
     plugins = with pkgs.vimPlugins; [
-
       # LSP - Autocompletion related
       nvim-lspconfig              # Every LSP default config
       cmp-nvim-lsp                # cmp suggestions from Language Servers

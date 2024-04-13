@@ -31,41 +31,62 @@ in
         width = "100%";
         height = 30;
         top = true;
-        background = "${config.colors.background}";
+        background = "#321E1E2E"; # transparent background
         foreground = white;
         font-0 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
         font-1 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=18:antialias=true;3";
         font-2 = "JetBrainsMono Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
         font-3 = "unifont:fontformat=truetype:size=8:antialias=false";
-        modules-left = "i3";
-        modules-center = "date";
-        modules-right = "cpu filesystem pulseaudio ${battery} network";
-        tray-position = "right";
-        tray-foreground = "${config.colors.foreground}";
-        tray-padding = "2px";
+        modules-left = "lseparator i3 rseparator";
+        modules-center = "lseparator date rseparator";
+        modules-right = "lseparator cpu space filesystem space pulseaudio rseparator group-spacer lseparator ${battery} space network tray rseparator";
         override-redirect = false;
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         line-size = 2;
-        module-margin = "8px";
+        module-margin = "0px";
         padding-right = "1";
+        padding-left = "1";
+      };
+
+      "module/tray" = {
+        type = "internal/tray";
+        format-padding = "8px";
+        tray-spacing = "8px";
+        format-background = "${config.colors.background}";
+        tray-background = "${config.colors.background}";
       };
 
       "module/rseparator" = {
         type = "custom/text";
-        content = "";
+        content = "";
         content-font = 2;
-        content-foreground = "${config.colors.foreground}";
+        content-foreground = "${config.colors.background}";
+      };
+
+      "module/space" = {
+        type = "custom/text";
+        content = " ";
+        content-font = 2;
+        # content-foreground = "${config.colors.background}";
+        content-background = "${config.colors.background}";
+      };
+
+      "module/group-spacer" = {
+        type = "custom/text";
+        content = " ";
+        content-font = 2;
       };
 
       "module/lseparator" = {
         type = "custom/text";
-        content = "";
+        content = "";
         content-font = 2;
-        content-foreground = "${config.colors.foreground}";
+        content-foreground = "${config.colors.background}";
       };
 
       "module/i3" = {
+        format-background = "${config.colors.background}";
         type = "internal/i3";
         format = "<label-state> <label-mode>";
         index-sort = true;
@@ -94,6 +115,7 @@ in
       };
 
       "module/date" = {
+        format-background = "${config.colors.background}";
         type = "internal/date";
         format = "<label>";
         interval = 5;
@@ -104,6 +126,7 @@ in
       };
 
       "module/pulseaudio" = {
+        format-volume-background = "${config.colors.background}";
         type = "internal/pulseaudio";
         format-volume = "<ramp-volume> <label-volume>";
         label-volume = "%percentage%%";
@@ -113,6 +136,7 @@ in
       };
 
       "module/filesystem" = {
+        format-mounted-background = "${config.colors.background}";
         type = "internal/fs";
         mount-0 = "/";
         fixed-values = false;
@@ -121,12 +145,15 @@ in
       };
 
       "module/cpu" = {
+        format-background = "${config.colors.background}";
         type = "internal/cpu";
         format = "  <label>";
         label = "%percentage%%";
       };
 
       "module/network" = {
+        format-connected-background = "${config.colors.background}";
+        format-disconnected-background = "${config.colors.background}";
         type = "internal/network";
         interface = if host == "lambda" then "wlan0" else "wlp8s0";
         interval = "5";
@@ -136,6 +163,7 @@ in
       };
       
       "module/battery-combined" = lib.mkIf hasBattery {
+        format-background = "${config.colors.background}";
         type = "custom/script";
         exec = "${battScript}/bin/batterycomb";
         format = "<label>";

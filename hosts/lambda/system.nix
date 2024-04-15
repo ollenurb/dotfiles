@@ -142,6 +142,7 @@ in
   fonts.packages = with pkgs; [
     customFonts
     font-awesome
+    weather-icons
   ];
 
   # Enable touchpad support (enabled default in most desktopManager).

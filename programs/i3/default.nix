@@ -47,7 +47,7 @@ in
       { command = "$HOME/.fehbg"; always = false; notification = false; }
     ];
 
-    gaps.inner = if hdpi then 12 else 8;
+    gaps.inner = if hdpi then 12 else 0;
     gaps.smartBorders = "on";
 
     keybindings = lib.mkOptionDefault {

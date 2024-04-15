@@ -13,7 +13,12 @@ let
 
   battery = if hasBattery then "battery-combined" else "";
 
+  # Colors..
   white = "#FFFFFF";
+  bg = config.colors.background;
+  fg = config.colors.foreground;
+  transparent_bg = "#641E1E2E";
+  notify = "${pkgs.dunst}/bin/dunstify";
 in
 {
   services.polybar = {
@@ -31,44 +36,36 @@ in
         width = "100%";
         height = 30;
         top = true;
-        background = "#321E1E2E"; # transparent background
-        foreground = white;
+        background = transparent_bg; # transparent background
+        foreground = "${fg}";
         font-0 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=14:antialias=true;3";
-        font-1 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=18:antialias=true;3";
+        font-1 = "JetBrainsMono Nerd Font:style=Mono:pixelsize=18:antialias=true;4";
         font-2 = "JetBrainsMono Nerd Font:style=Bold:pixelsize=11:antialias=true;3";
         font-3 = "unifont:fontformat=truetype:size=8:antialias=false";
-        modules-left = "lseparator i3 rseparator";
-        modules-center = "lseparator date rseparator";
-        modules-right = "lseparator cpu space filesystem space pulseaudio rseparator group-spacer lseparator ${battery} space network tray rseparator";
+        modules-left = "lseparator date rseparator";
+        modules-center = "i3";
+        modules-right = "lseparator cpu space filesystem rseparator group-spacer lseparator pulseaudio space network space ${battery} rseparator group-spacer tray";
         override-redirect = false;
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
         line-size = 2;
         module-margin = "0px";
-        padding-right = "1";
-        padding-left = "1";
+        padding = "1";
+        border-top-size = "4";
+        border-bottom-size = "4";
+        border-color = transparent_bg;
       };
 
       "module/tray" = {
         type = "internal/tray";
-        format-padding = "8px";
+        format-padding-right = "8px";
         tray-spacing = "8px";
-        format-background = "${config.colors.background}";
-        tray-background = "${config.colors.background}";
-      };
-
-      "module/rseparator" = {
-        type = "custom/text";
-        content = "";
-        content-font = 2;
-        content-foreground = "${config.colors.background}";
       };
 
       "module/space" = {
         type = "custom/text";
         content = " ";
         content-font = 2;
-        # content-foreground = "${config.colors.background}";
         content-background = "${config.colors.background}";
       };
 
@@ -76,6 +73,13 @@ in
         type = "custom/text";
         content = " ";
         content-font = 2;
+      };
+
+      "module/rseparator" = {
+        type = "custom/text";
+        content = "";
+        content-font = 2;
+        content-foreground = "${config.colors.background}";
       };
 
       "module/lseparator" = {
@@ -86,7 +90,6 @@ in
       };
 
       "module/i3" = {
-        format-background = "${config.colors.background}";
         type = "internal/i3";
         format = "<label-state> <label-mode>";
         index-sort = true;
@@ -96,9 +99,9 @@ in
         label.mode-padding = 1;
 
         # focused = Active workspace on focused monitor
-        label-focused = "%index%";
+        label-focused="%{T2}%{F${bg}}%{F-}%{T-}%{B${bg}} %index% %{B-}%{T2}%{F${bg}}%{F-}%{T-}";
+
         label-focused-padding = 1;
-        label-focused-underline = "${config.colors.foreground}";
 
         # unfocused = Inactive workspace on any monitor
         label-unfocused = "%index%";
@@ -117,7 +120,7 @@ in
       "module/date" = {
         format-background = "${config.colors.background}";
         type = "internal/date";
-        format = "<label>";
+        format = "󱑆 <label>";
         interval = 5;
         date-alt = "%A %d %b";
         time = "%H:%M";
@@ -127,6 +130,7 @@ in
 
       "module/pulseaudio" = {
         format-volume-background = "${config.colors.background}";
+        format-muted-background = "${config.colors.background}";
         type = "internal/pulseaudio";
         format-volume = "<ramp-volume> <label-volume>";
         label-volume = "%percentage%%";
@@ -157,7 +161,7 @@ in
         type = "internal/network";
         interface = if host == "lambda" then "wlan0" else "wlp8s0";
         interval = "5";
-        label-connected = "%{A1:alacritty -e nmtui:}%essid%%{A}";
+        label-connected = ''%{A1:${notify} "WiFi Connected" "SSID\: %essid%\nIP\: %local_ip%\nSignal\: %signal%%":}%signal%%%{A}'';
         format-disconnected = "󰖪  Disconnected";
         format-connected = "  <label-connected>"; 
       };
